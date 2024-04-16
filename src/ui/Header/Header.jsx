@@ -12,7 +12,7 @@ export default function Header() {
         {/* Catman */}
         <NavLink to="home" className="flex items-center title-font font-medium text-gray-900 w-1/3">
             <LuCat size={24} className="text-orange-300" />
-            <p className="ml-3">Cat Lyrics</p>
+            <p className="ml-3 text-white/80">CatMan Lyrics</p>
         </NavLink>
         {/* Hamburger Menu */}
         <div className="block sm:hidden">
@@ -20,10 +20,10 @@ export default function Header() {
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center px-3 py-2 rounded text-black-500 hover:text-black-400"
           >
-            <HiBars3 size={24} className={`${isOpen ? "hidden" : "block"}`} />
+            <HiBars3 size={24} className={`text-white ${isOpen ? "hidden" : "block"}`} />
             <HiMiniXMark
               size={24}
-              className={`${isOpen ? "block" : "hidden"}`}
+              className={`text-white ${isOpen ? "block" : "hidden"}`}
             />
           </button>
         </div>
@@ -37,28 +37,28 @@ export default function Header() {
             <NavLink
               onClick={() => setIsOpen(!isOpen)}
               to="/home"
-              className="block mt-4 sm:inline-block sm:mt-0 text-white-200 mr-4"
+              className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
             >
               Home
             </NavLink>
             <NavLink
               onClick={() => setIsOpen(!isOpen)}
               to="/songs"
-              className="block mt-4 sm:inline-block sm:mt-0 text-white-200 mr-4"
+              className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
             >
               Songs
             </NavLink>
             <NavLink
               onClick={() => setIsOpen(!isOpen)}
               to="/artists"
-              className="block mt-4 sm:inline-block sm:mt-0 text-white-200 mr-4"
+              className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
             >
               Artists
             </NavLink>
             <NavLink
               onClick={() => setIsOpen(!isOpen)}
               to="/about"
-              className="block mt-4 sm:inline-block sm:mt-0 text-white-200 mr-4"
+              className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
             >
               About
             </NavLink>
