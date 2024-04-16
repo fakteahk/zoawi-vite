@@ -10,7 +10,7 @@ export default function Header() {
     <>
       <nav className="container mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-slate-700/70 justify-between">
         {/* Catman */}
-        <NavLink to="home" className="flex items-center title-font font-medium text-gray-900 w-1/3">
+        <NavLink to="home" className="flex items-center title-font font-medium text-gray-900 w-1/2 sm:w-1/3">
             <LuCat size={24} className="text-orange-300" />
             <p className="ml-3 text-white/80">CatMan Lyrics</p>
         </NavLink>
