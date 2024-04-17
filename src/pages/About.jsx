@@ -1,4 +1,4 @@
-import Card from "../ui/AboutCard";
+import AboutCard from "../ui/AboutCard";
 
 export default function About() {
   return (
@@ -6,7 +6,7 @@ export default function About() {
       <div className="max-w-2xl relative">
         <p className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
           <p className="mb-4 font-alegreya font-bold">About Us!</p>
-          <Card />
+          <AboutCard />
         </p>
         <AboutText />
       </div>
