@@ -6,7 +6,7 @@ function Footer() {
         <p>This will be the footer</p>
         <p>This will be the footer</p>
         <p>This will be the footer</p>
-        <p>This is zorini footer</p>
+        <p>This is zorini's footer</p>
       </div>
     </>
   );
