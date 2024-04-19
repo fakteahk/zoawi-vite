@@ -3,6 +3,7 @@ function Songs() {
     <>
       <div>
         <p>Song Page</p>
+        {/* Will contain list of songs */}
       </div>
     </>
   );

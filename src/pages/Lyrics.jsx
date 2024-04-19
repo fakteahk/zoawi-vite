@@ -3,6 +3,7 @@ function Lyrics() {
     <>
       <div>
         <p>LyricPage</p>
+        {/* Will contain lyrics of songs */}
       </div>
     </>
   );
