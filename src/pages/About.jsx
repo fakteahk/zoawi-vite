@@ -5,7 +5,7 @@ export default function About() {
     <>
       <div className="max-w-2xl relative">
         <p className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
-          <p className="mb-4 font-alegreya font-bold">About Us!</p>
+          <p className="mb-4 font-atkinson font-bold">About Us!</p>
           <AboutCard />
         </p>
         <AboutText />
@@ -16,7 +16,7 @@ export default function About() {
 
 function AboutText() {
   return (
-    <div className="px-1 pt-3 font-alegreya">
+    <div className="px-1 pt-3 font-atkinson">
       CatMan Lyrics sprang to life in 2024, a brainchild of the dynamic duo,
       Faktea and Zorini! Armed with their tech wizardry and a dash of spicy
       sauce, they embarked on a mission to unleash the magic of Mizo lyrics for

@@ -1,10 +1,12 @@
+import Songs from "./Songs";
+import Artists from "./Artists";
+
 function Home() {
   return (
-    <>
-      <div>
-        <p>Home</p>
-      </div>
-    </>
+    <div className="">
+      <Songs />
+      <Artists />
+    </div>
   );
 }
 
