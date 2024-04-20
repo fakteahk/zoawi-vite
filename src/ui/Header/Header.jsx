@@ -72,6 +72,7 @@ function PCNav({ isOpen, setIsOpen }) {
           >
             Home
           </NavLink>
+
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/songs"
@@ -79,6 +80,7 @@ function PCNav({ isOpen, setIsOpen }) {
           >
             Songs
           </NavLink>
+
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/artists"
@@ -86,12 +88,21 @@ function PCNav({ isOpen, setIsOpen }) {
           >
             Artists
           </NavLink>
+
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/about"
             className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
           >
             About
+          </NavLink>
+          
+          <NavLink
+            onClick={() => setIsOpen(!isOpen)}
+            to="/zori_page"
+            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+          >
+          ZoriPage
           </NavLink>
         </div>
       </div>
