@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { HiBars3, HiMiniXMark } from "react-icons/hi2";
-import { LuCat } from "react-icons/lu";
+import { MdMenu, MdClose } from "react-icons/md";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-teal-900/70 justify-between">
+      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-teal-950/70 justify-between">
         {/* Catman */}
         <NavLink
           to="home"
           className="flex items-center title-font font-medium text-gray-900 w-1/2 sm:w-1/3"
         >
-          <LuCat size={24} className="text-orange-300" />
-          <p className="ml-3 font-alegreya font-bold text-white/80">CatMan Lyrics</p>
+          <img className="h-8 w-8" src="/catman.svg" alt="catman" />
+          <p className="ml-3 font-atkinson font-bold text-white/80">
+            CatMan Lyrics
+          </p>
         </NavLink>
         {/* Hamburger Menu */}
         <HamburgerMenu setIsOpen={setIsOpen} isOpen={isOpen} />
@@ -24,7 +25,7 @@ export default function Header() {
         {/* Login */}
         <div className="hidden sm:block sm:w-1/3">
           <div className="flex justify-end  text-teal-100">
-            <button className="inline-flex items-center bg-white-500 rounded-full py-0.5 px-3 border-[1px] border-teal-300 text-sm font-alegreya">
+            <button className="inline-flex items-center bg-white-500 rounded-full py-0.5 px-3 border-[1px] border-teal-300 text-sm font-atkinson">
               Login
             </button>
           </div>
@@ -40,13 +41,13 @@ function HamburgerMenu({ setIsOpen, isOpen }) {
       <div className="block sm:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center px-3 py-2 rounded text-black-500 hover:text-black-400"
+          className={`flex items-center px-3 py-2 rounded text-black-500 hover:text-black-400`}
         >
-          <HiBars3
+          <MdMenu
             size={24}
             className={`text-white ${isOpen ? "hidden" : "block"}`}
           />
-          <HiMiniXMark
+          <MdClose
             size={24}
             className={`text-white ${isOpen ? "block" : "hidden"}`}
           />
@@ -60,7 +61,7 @@ function PCNav({ isOpen, setIsOpen }) {
   return (
     <>
       <div
-        className={`w-full block font-alegreya flex-grow sm:flex sm:items-center sm:w-1/3 ${
+        className={` w-full block font-atkinson flex-grow sm:flex sm:items-center sm:w-1/3 ${
           isOpen ? "block" : "hidden"
         }`}
       >
