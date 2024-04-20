@@ -3,7 +3,7 @@ import AboutCard from "../ui/AboutCard";
 export default function About() {
   return (
     <>
-      <div className="max-w-2xl relative">
+      <div className="max-w-2xl relative mx-4">
         <p className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
           <p className="mb-4 font-atkinson font-bold">About Us!</p>
           <AboutCard />

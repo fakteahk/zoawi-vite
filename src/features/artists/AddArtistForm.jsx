@@ -35,7 +35,7 @@ export default function AddArtistForm() {
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <div className="mb-4 flex justify-end">
-              <Link to="/artists" className="flex items-center gap-2"><LiaArrowLeftSolid />Go back</Link>
+              <Link to="/artists" className="flex items-center gap-2 mr-4"><LiaArrowLeftSolid />Go back</Link>
             </div>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Add Artist

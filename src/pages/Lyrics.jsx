@@ -7,7 +7,7 @@ function Lyrics() {
     <>
       <div className="max-w-[720px]">
       <div className="mb-4 flex text-sm justify-end">
-          <Link to="/songs" className="flex items-center gap-2">
+          <Link to="/songs" className="flex items-center gap-2 mr-4">
             <LiaArrowLeftSolid />
             Go back
           </Link>

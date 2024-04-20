@@ -16,7 +16,7 @@ function ArtistSongs() {
     return (
       <div className="flex flex-col min-w-96">
         <div className="mb-4 flex text-sm justify-end">
-          <Link to="/artists" className="flex items-center gap-2">
+          <Link to="/artists" className="flex items-center gap-2 mr-4">
             <LiaArrowLeftSolid />
             Go back
           </Link>
@@ -31,7 +31,7 @@ function ArtistSongs() {
   return (
     <div>
       <div className="mb-4 flex justify-end">
-          <Link to="/artists" className="flex text-sm items-center gap-2">
+          <Link to="/artists" className="flex text-sm items-center gap-2 mr-4">
             <LiaArrowLeftSolid />
             Go back
           </Link>
