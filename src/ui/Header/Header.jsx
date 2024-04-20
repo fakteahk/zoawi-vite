@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { LuCat } from "react-icons/lu";
 import { MdMenu, MdClose } from "react-icons/md";
 
 export default function Header() {
@@ -8,13 +7,13 @@ export default function Header() {
 
   return (
     <>
-      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-teal-900/70 justify-between">
+      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-teal-950/70 justify-between">
         {/* Catman */}
         <NavLink
           to="home"
           className="flex items-center title-font font-medium text-gray-900 w-1/2 sm:w-1/3"
         >
-          <LuCat size={24} className="text-orange-300" />
+          <img className="h-8 w-8" src="/catman.svg" alt="catman" />
           <p className="ml-3 font-atkinson font-bold text-white/80">
             CatMan Lyrics
           </p>

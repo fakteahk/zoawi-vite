@@ -21,7 +21,6 @@ function SongsTable() {
           <Link to={`/songs/${song.id}`}>
             <p className="">{song.title}</p>
             <p>{song.artists.name}</p>
-            {song.id}
           </Link>
         </div>
       ))}
