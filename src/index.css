@@ -8,3 +8,7 @@
 body {
     @apply bg-orange-200/60;
   }
+
+.active {
+    @apply text-orange-300; 
+  }
