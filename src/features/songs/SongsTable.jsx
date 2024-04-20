@@ -16,7 +16,7 @@ export default function SongsTable() {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <div className="grid sm:grid-cols-2 gap-2 p-2 min-w-96">
+    <div className="grid sm:grid-rows-10 gap-2 p-2 min-w-96">
       {songs.map((song) => (
         <SongRow key={song.id} song={song} />
       ))}
