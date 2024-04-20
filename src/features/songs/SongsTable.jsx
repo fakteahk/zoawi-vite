@@ -1,10 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getSongs } from "../../services/apiSongs";
+import { useMutation } from "@tanstack/react-query";
+import { deleteSong } from "../../services/apiSongs";
+
 
 import { Link } from "react-router-dom";
 
-function SongsTable() {
-  const { isLoading, data: songs } = useQuery({
+export default function SongsTable() {
+  const { isLoading: isLoading, data: songs } = useQuery({
     queryKey: ["songs"],
     queryFn: getSongs,
   });
@@ -14,18 +17,45 @@ function SongsTable() {
   return (
     <div className="grid sm:grid-cols-2 gap-2 p-2 min-w-96">
       {songs.map((song) => (
-        <div
-          key={song.id}
-          className="bg-teal-900/10 p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
-        >
-          <Link to={`/songs/${song.id}`}>
-            <p className="">{song.title}</p>
-            <p>{song.artists.name}</p>
-          </Link>
-        </div>
+        <SongRow key={song.id} song={song} />
       ))}
     </div>
   );
 }
 
-export default SongsTable;
+function SongRow({ song }) {
+  const { id: songId, title, artists: {name} } = song;
+
+  const queryClient = useQueryClient();
+
+  const { isLoading: isDeleting, mutate } = useMutation(
+    {
+      mutationFn: () => deleteSong(songId),
+      onSuccess: () => {
+        alert("Song deleted");
+        queryClient.invalidateQueries({
+          queryKey: ["songs"],
+        })
+      },
+
+      onError: (error) => {
+        console.error(error);
+      },
+    }
+  )
+
+  return (
+    <div
+          key={song.id}
+          className="bg-teal-900/10 p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
+        >
+          <div className="bg-white">
+            <Link to={`/songs/${songId}`}>
+              <p className="">{title}</p>
+              <p>{name}</p>
+            </Link>
+            <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button>
+          </div>
+        </div>
+  );
+}

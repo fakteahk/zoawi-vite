@@ -41,3 +41,14 @@ export async function getSongOfArtist(artistId) {
 
   return songs;
 }
+
+//Delete stuff
+
+export async function deleteSong(songId) {
+  const { error } = await supabase.from("songs").delete().eq("id", songId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Error deleting song");
+  }
+}
