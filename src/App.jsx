@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Lyrics from "./pages/Lyrics";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ArtistSongs from "./features/artists/ArtistSongs";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,25 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster 
+      position="top-center" 
+      gutter={12} 
+      containerStyle={{margin: "8px"}}
+      toastOptions={{
+        success: {
+          duration: 3000,
+        },
+        error: {
+          duration: 3000,
+        },
+        style: {
+          fontSize: "16px",
+          maxWidth: "500px",
+          padding: "16px 24px",
+          backgroundColor: "#fee7cc",
+        },
+      }}
+      />
     </QueryClientProvider>
   );
 }

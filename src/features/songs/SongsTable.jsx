@@ -5,6 +5,7 @@ import { deleteSong } from "../../services/apiSongs";
 
 
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SongsTable() {
   const { isLoading: isLoading, data: songs } = useQuery({
@@ -32,14 +33,14 @@ function SongRow({ song }) {
     {
       mutationFn: () => deleteSong(songId),
       onSuccess: () => {
-        alert("Song deleted");
+        toast.success("Song deleted");
         queryClient.invalidateQueries({
           queryKey: ["songs"],
         })
       },
 
       onError: (error) => {
-        console.error(error);
+        toast.error(error.message);
       },
     }
   )

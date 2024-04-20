@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         'atkinson': ['"Atkinson Hyperlegible"', 'sans-serif'],
         'alegreya': ["Alegreya", 'sans-serif']
+      },
+      colors: {
+        'toastBg': '#fee7cc' 
       }
     },
   },
