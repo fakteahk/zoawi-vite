@@ -11,6 +11,7 @@ import Lyrics from "./pages/Lyrics";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ArtistSongs from "./features/artists/ArtistSongs";
 import { Toaster } from "react-hot-toast";
+import AddArtistForm from "./features/artists/AddArtistForm";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,11 +30,17 @@ export default function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />}></Route>
+
             <Route path="songs" element={<Songs />}></Route>
+            <Route path="songs/:id" element={<Lyrics />}></Route>
+
             <Route path="artists" element={<Artists />}></Route>
             <Route path="artists/:id" element={<ArtistSongs />}></Route>
-            <Route path="songs/:id" element={<Lyrics />}></Route>
+            <Route path="addArtist" element={<AddArtistForm />}></Route>
+            
             <Route path="about" element={<About />}></Route>
+
+            <Route path="zori_page" element={<h1>Zori Page</h1>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

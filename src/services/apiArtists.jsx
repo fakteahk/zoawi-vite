@@ -10,3 +10,17 @@ export async function getArtists() {
 
   return data;
 }
+
+export async function createArtist(newArtist) {
+  const { data, error } = await supabase
+    .from("artists")
+    .insert([newArtist])
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Artist could not be created");
+  }
+
+  return data;
+}

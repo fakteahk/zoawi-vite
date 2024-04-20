@@ -11,9 +11,12 @@ export default {
         'alegreya': ["Alegreya", 'sans-serif']
       },
       colors: {
-        'toastBg': '#fee7cc' 
+        'primary': '#FEE7CC', 
+        'secondary': '#5D6C61', 
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

@@ -1,11 +1,11 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getSongs } from "../../services/apiSongs";
-import { useMutation } from "@tanstack/react-query";
-import { deleteSong } from "../../services/apiSongs";
+// import { useMutation } from "@tanstack/react-query";
+// import { deleteSong } from "../../services/apiSongs";
 
 
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 export default function SongsTable() {
   const { isLoading: isLoading, data: songs } = useQuery({
@@ -27,35 +27,35 @@ export default function SongsTable() {
 function SongRow({ song }) {
   const { id: songId, title, artists: {name} } = song;
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate } = useMutation(
-    {
-      mutationFn: () => deleteSong(songId),
-      onSuccess: () => {
-        toast.success("Song deleted");
-        queryClient.invalidateQueries({
-          queryKey: ["songs"],
-        })
-      },
+  // const { isLoading: isDeleting, mutate } = useMutation(
+  //   {
+  //     mutationFn: () => deleteSong(songId),
+  //     onSuccess: () => {
+  //       toast.success("Song deleted");
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["songs"],
+  //       })
+  //     },
 
-      onError: (error) => {
-        toast.error(error.message);
-      },
-    }
-  )
+  //     onError: (error) => {
+  //       toast.error(error.message);
+  //     },
+  //   }
+  // )
 
   return (
     <div
           key={song.id}
           className="bg-teal-900/10 p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
         >
-          <div className="bg-white">
+          <div>
             <Link to={`/songs/${songId}`}>
-              <p className="">{title}</p>
-              <p>{name}</p>
+              <p className="font-semibold">{title}</p>
+              <p className="text-secondary">{name}</p>
             </Link>
-            <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button>
+            {/* <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button> */}
           </div>
         </div>
   );

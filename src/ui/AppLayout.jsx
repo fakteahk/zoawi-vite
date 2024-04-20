@@ -7,7 +7,7 @@ function AppLayout() {
   return (
     <div className="">
       <Header />
-      <div className="flex mx-auto p-5 max-w-7xl justify-center">
+      <div className="flex mx-auto p-5 max-w-7xl justify-center h-screen">
         <Outlet />
       </div>
       <Footer />

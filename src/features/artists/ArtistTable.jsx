@@ -11,7 +11,7 @@ function ArtistTable() {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <div className="sm:max-w-[960px] gap-2 p-2 min-w-96 flex flex-col">
+    <div className="sm:max-w-[960px] gap-2 p-2 min-w-96 grid grid-cols-2">
       {artist.map((artist) => (
         <div
           key={artist.id}

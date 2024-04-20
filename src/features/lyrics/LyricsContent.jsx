@@ -14,11 +14,11 @@ function LyricsContent() {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <div>
-      <div className="pt-4">{lyrics[0].songs.artists.name}</div>
-      <div className="pt-4">{lyrics[0].songs.title}</div>
+    <div className="pl-4">
+      <div className="mt-4 font-semibold">{lyrics[0].songs.title}</div>
+      <div className="mt-1 pb-12">{lyrics[0].songs.artists.name}</div>
       {lyrics.map((lyrics) => (
-        <div key={lyrics.id} className="p-4">
+        <div key={lyrics.id} className="mt-4">
           <p>{lyrics.lyrics}</p>
         </div>
       ))}

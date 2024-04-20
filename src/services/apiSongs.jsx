@@ -36,7 +36,7 @@ export async function getSongOfArtist(artistId) {
   }
 
   if (songs.length === 0) {
-    throw new Error("No songs by this artist");
+    return [];
   }
 
   return songs;
