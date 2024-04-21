@@ -11,11 +11,11 @@ function ArtistTable() {
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <div className="sm:max-w-[960px] gap-2 p-2 min-w-96 grid grid-rows-10">
+    <div className="sm:max-w-[960px] gap-2 min-w-96 grid grid-rows-10">
       {artist.map((artist) => (
         <div
           key={artist.id}
-          className="bg-teal-900/10 p-4 rounded-sm shadow-md font-atkinson text-lg"
+          className="bg-secondary/30 hover:bg-secondary cursor-pointer p-4 rounded-sm shadow-md font-atkinson text-lg"
         >
           <Link to={`/artists/${artist.id}`}>
             <p>{artist.name}</p>

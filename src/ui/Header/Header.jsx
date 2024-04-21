@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-teal-950/70 justify-between">
+      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-primary/70 justify-between">
         {/* Catman */}
         <NavLink
           to="home"

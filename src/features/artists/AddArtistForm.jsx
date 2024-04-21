@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { LiaArrowLeftSolid } from 'react-icons/lia'
+import { LiaArrowLeftSolid } from "react-icons/lia";
 
 import { createArtist } from "../../services/apiArtists";
 import { Link } from "react-router-dom";
@@ -32,10 +32,13 @@ export default function AddArtistForm() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="space-y-12">
+        <div className="space-y-12 px-4">
           <div className="border-b border-gray-900/10 pb-12">
             <div className="mb-4 flex justify-end">
-              <Link to="/artists" className="flex items-center gap-2 mr-4"><LiaArrowLeftSolid />Go back</Link>
+              <Link to="/artists" className="flex items-center gap-2 mr-4">
+                <LiaArrowLeftSolid />
+                Go back
+              </Link>
             </div>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Add Artist
@@ -107,7 +110,7 @@ export default function AddArtistForm() {
                   />
                   <button
                     type="button"
-                    className="rounded-md bg-secondary px-2.5 py-1.5 text-sm font-medium text-primary shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-secondary/70"
+                    className="rounded-md bg-primary px-2.5 py-1.5 text-sm font-medium text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary/70"
                   >
                     Change
                   </button>
@@ -117,7 +120,7 @@ export default function AddArtistForm() {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="mt-6 flex items-center justify-end gap-x-6 px-4">
           <button
             type="reset"
             className="text-sm font-semibold leading-6 text-gray-900"
@@ -126,7 +129,7 @@ export default function AddArtistForm() {
           </button>
           <button
             type="submit"
-            className="rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             disabled={isCreating}
           >
             Save

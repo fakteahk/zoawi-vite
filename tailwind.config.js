@@ -11,8 +11,10 @@ export default {
         'alegreya': ["Alegreya", 'sans-serif']
       },
       colors: {
-        'primary': '#FEE7CC', 
-        'secondary': '#5D6C61', 
+        'background': "#f0e7e5",
+        'primary': '#34503a', 
+        'secondary': '#d3bdb1',
+        'accent' : '#4c3434'
       }
     },
   },

@@ -48,12 +48,12 @@ function SongRow({ song }) {
   return (
     <div
           key={song.id}
-          className="bg-teal-900/10 p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
+          className="bg-secondary/30 hover:bg-secondary cursor-pointer p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
         >
           <div>
             <Link to={`/songs/${songId}`}>
               <p className="font-semibold">{title}</p>
-              <p className="text-secondary">{name}</p>
+              <p className="text-primary">{name}</p>
             </Link>
             {/* <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button> */}
           </div>

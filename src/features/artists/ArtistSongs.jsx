@@ -51,7 +51,7 @@ function ArtistSongs() {
         {songs.map((song) => (
           <div
             key={song.id}
-            className="bg-teal-900/10 p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
+            className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
           >
             <Link to={`/songs/${song.id}`}>
               <p className="">{song.title}</p>

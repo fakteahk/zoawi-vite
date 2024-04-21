@@ -13,7 +13,7 @@ function Artists() {
 
         <div className="flex items-center justify-center align-middle mt-4">
           <button
-            className="bg-teal-800/70 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-primary/70 hover:bg-primary text-white font-bold py-2 px-4 rounded"
           >
             <Link to="/addArtist">Add new Artist</Link>
           </button>

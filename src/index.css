@@ -6,7 +6,8 @@
 @tailwind utilities;
 
 body {
-    @apply bg-orange-200/60;
+    /* @apply bg-orange-200/60; */
+    @apply bg-slate-50;
   }
 
 .active {
