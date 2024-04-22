@@ -11,5 +11,5 @@ body {
   }
 
 .active {
-    @apply text-orange-300; 
+    @apply text-test; 
   }

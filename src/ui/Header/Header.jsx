@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { MdMenu, MdClose } from "react-icons/md";
-import SearchTest from "../../pages/SearchTest";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +11,7 @@ export default function Header() {
         {/* Catman */}
         <NavLink
           to="home"
-          className="flex items-center title-font font-medium text-gray-900 w-1/2 md:w-1/3"
+          className="flex items-center title-font font-medium text-gray-900 w-1/2 md:w-1/6"
         >
           <img className="h-8 w-8" src="/catman.svg" alt="catman" />
           <p className="ml-3 font-atkinson font-bold text-white/80">
@@ -24,7 +23,7 @@ export default function Header() {
         {/* Nav on PC */}
         <PCNav setIsOpen={setIsOpen} isOpen={isOpen} />
         {/* Login */}
-        <div className="hidden md:block md:w-1/3">
+        <div className="hidden md:block md:w-1/6">
           <div className="flex justify-end  text-teal-100">
             <button className="inline-flex items-center bg-white-500 rounded-full py-0.5 px-3 border-[1px] border-teal-300 text-sm font-atkinson">
               Login
@@ -62,7 +61,7 @@ function PCNav({ isOpen, setIsOpen }) {
   return (
     <>
       <div
-        className={` w-full block font-atkinson flex-grow md:flex md:items-center md:w-1/3 ${
+        className={`absolute bg-primary z-20 top-20 right-0 w-full block font-atkinson flex-grow md:flex md:items-center md:w-2/3 ${
           isOpen ? "block" : "hidden"
         }`}
       >

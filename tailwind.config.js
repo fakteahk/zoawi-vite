@@ -14,7 +14,8 @@ export default {
         'background': "#f0e7e5",
         'primary': '#34503a', 
         'secondary': '#d3bdb1',
-        'accent' : '#4c3434'
+        'accent' : '#4c3434',
+        'test' : '#00df9a'
       }
     },
   },

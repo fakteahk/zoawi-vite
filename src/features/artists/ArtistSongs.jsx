@@ -30,24 +30,24 @@ function ArtistSongs() {
 
   return (
     <div>
-      <div className="mb-4 flex justify-end">
-          <Link to="/artists" className="flex text-sm items-center gap-2 mr-4">
-            <LiaArrowLeftSolid />
-            Go back
-          </Link>
-        </div>
+      {/* Go back arrow */}
+      <div className="absolute mb-4 flex text-white right-0 pt-2">
+        <Link to="/artists" className="flex text-sm items-center gap-2 mr-4">
+          <LiaArrowLeftSolid />
+          Go back
+        </Link>
+      </div>
       <div className="flex flex-col items-center justify-center text-xl mb-4">
-        
         {songs[0].artists.image_url && (
           <img
             src={songs[0].artists.image_url}
             alt={songs[0].artists.name}
-            className=" w-80 h-48 rounded-xl object-cover"
+            className=" w-screen h-72 object-cover"
           />
         )}
         <div className="pt-4">{songs[0].artists.name}</div>
       </div>
-      <div className="grid sm:grid-cols-2 gap-2 p-2 min-w-96">
+      <div className="grid gap-2 p-2 min-w-96">
         {songs.map((song) => (
           <div
             key={song.id}

@@ -1,19 +1,21 @@
 function Footer() {
   return (
     <footer>
-      <div className="w-full p-8 py-6 lg:py-8 bg-white bg-primary/80 dark:bg-primary/80">
+      <div className="w-full p-8 py-6 lg:py-8 bg-primary">
         <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0">
-            <a
-              href="https://zoawi-vite.vercel.app/"
-              className="flex items-center"
-            >
-              <img src="/catman.svg" className="h-8 me-3" alt="CatMan Logo" />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                CatMan Lyrics
-              </span>
-            </a>
-          </div>
+          {
+          //   <div className="mb-6 md:mb-0">
+          //   <a
+          //     href="https://zoawi-vite.vercel.app/"
+          //     className="flex items-center"
+          //   >
+          //     <img src="/catman.svg" className="h-8 me-3" alt="CatMan Logo" />
+          //     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          //       CatMan Lyrics
+          //     </span>
+          //   </a>
+          // </div>
+          }
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">

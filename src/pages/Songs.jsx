@@ -3,10 +3,8 @@ import SongsTable from "../features/songs/SongsTable";
 function Songs() {
   return (
     <>
-      <div className="sm:w-full">
-        <p className="mb-8 ml-2 flex font-atkinson font-bold text-xl">
-          Songs
-        </p>
+      <div className="sm:w-[90vw]">
+        <p className="flex font-atkinson font-bold text-xl ml-2">Songs</p>
         {/* Will contain list of artists */}
         <SongsTable />
       </div>
