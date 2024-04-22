@@ -9,15 +9,16 @@ export default function Header() {
     <>
       <nav className="shadow-xl flex flex-wrap p-5 flex-row items-center bg-primary/70 justify-between">
         {/* Catman */}
-        <NavLink
-          to="home"
+        <div
           className="flex items-center title-font font-medium text-gray-900 w-1/2 md:w-1/6"
         >
+          <NavLink to="/home">
           <img className="h-8 w-8" src="/catman.svg" alt="catman" />
           <p className="ml-3 font-atkinson font-bold text-white/80">
             CatMan Lyrics
           </p>
-        </NavLink>
+          </NavLink>
+        </div>
         {/* Hamburger Menu */}
         <HamburgerMenu setIsOpen={setIsOpen} isOpen={isOpen} />
         {/* Nav on PC */}

@@ -36,15 +36,14 @@ const Navbar = () => {
       <div className="md:flex items-center justify-between bg-primary py-4 md:px-10 px-7">
         {/* logo section */}
 
-        <NavLink
-          to="home"
-          className="font-bold text-md uppercase cursor-pointer flex items-center gap-1"
-        >
-          <img className="h-8 w-8" src="/catman.svg" alt="catman" />
-          <p className="ml-3 font-atkinson font-bold text-white/90">
-            CatMan Lyrics
-          </p>
-        </NavLink>
+        <div className="font-bold text-md uppercase flex">
+          <NavLink to="home" className="flex items-center">
+            <img className="h-8 w-8" src="/catman.svg" alt="catman" />
+            <p className="ml-3 font-atkinson font-bold text-white/90">
+              CatMan Lyrics
+            </p>
+          </NavLink>
+        </div>
 
         {/* Menu icon */}
         <div
