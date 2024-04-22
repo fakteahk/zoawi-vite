@@ -2,7 +2,7 @@ function ArtistCard({ children, imgSrc, ...props }) {
   return (
     <div
       {...props}
-      className="relative h-52 sm:h-60 overflow-hidden rounded-2xl shadow-lg group border-2 border-secondary border-dashed "
+      className="relative h-52 sm:h-60 overflow-hidden rounded-2xl shadow-lg group border-2 border-secondary border-dashed"
     >
       {imgSrc ? (
           <img
@@ -16,8 +16,8 @@ function ArtistCard({ children, imgSrc, ...props }) {
           style={{ width: "100%", paddingTop: "100%" }}
         ></div>
       )}
-      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent">
-        <div className="p-4 text-white">{children}</div>
+      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black via-transparent to-transparent">
+        <div className="p-4 uppercase text-white/70">{children}</div>
       </div>
     </div>
   );
