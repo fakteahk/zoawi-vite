@@ -4,7 +4,8 @@ export async function getArtists() {
   const { data, error } = await supabase
     .from("artists")
     .select("*, songs(*)")
-    .range(0,16);
+    .order("id", { ascending: true });
+    // .range(0,16);
 
   if (error) {
     console.error(error);

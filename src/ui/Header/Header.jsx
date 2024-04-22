@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { MdMenu, MdClose } from "react-icons/md";
+import SearchTest from "../../pages/SearchTest";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <nav className="container shadow-xl mx-auto flex max-w-7xl flex-wrap p-5 flex-row items-center bg-primary/70 justify-between">
+      <nav className="shadow-xl flex flex-wrap p-5 flex-row items-center bg-primary/70 justify-between">
         {/* Catman */}
         <NavLink
           to="home"
-          className="flex items-center title-font font-medium text-gray-900 w-1/2 sm:w-1/3"
+          className="flex items-center title-font font-medium text-gray-900 w-1/2 md:w-1/3"
         >
           <img className="h-8 w-8" src="/catman.svg" alt="catman" />
           <p className="ml-3 font-atkinson font-bold text-white/80">
@@ -23,7 +24,7 @@ export default function Header() {
         {/* Nav on PC */}
         <PCNav setIsOpen={setIsOpen} isOpen={isOpen} />
         {/* Login */}
-        <div className="hidden sm:block sm:w-1/3">
+        <div className="hidden md:block md:w-1/3">
           <div className="flex justify-end  text-teal-100">
             <button className="inline-flex items-center bg-white-500 rounded-full py-0.5 px-3 border-[1px] border-teal-300 text-sm font-atkinson">
               Login
@@ -38,7 +39,7 @@ export default function Header() {
 function HamburgerMenu({ setIsOpen, isOpen }) {
   return (
     <>
-      <div className="block sm:hidden">
+      <div className="block md:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`flex items-center px-3 py-2 rounded text-black-500 hover:text-black-400`}
@@ -61,15 +62,15 @@ function PCNav({ isOpen, setIsOpen }) {
   return (
     <>
       <div
-        className={` w-full block font-atkinson flex-grow sm:flex sm:items-center sm:w-1/3 ${
+        className={` w-full block font-atkinson flex-grow md:flex md:items-center md:w-1/3 ${
           isOpen ? "block" : "hidden"
         }`}
       >
-        <div className="flex sm:flex-row flex-col text-md sm:flex-grow justify-center">
+        <div className="flex md:flex-row flex-col text-md md:flex-grow justify-center">
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/home"
-            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+            className="block mt-4 md:inline-block md:mt-0 text-white mr-4"
           >
             Home
           </NavLink>
@@ -77,7 +78,7 @@ function PCNav({ isOpen, setIsOpen }) {
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/songs"
-            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+            className="block mt-4 md:inline-block md:mt-0 text-white mr-4"
           >
             Songs
           </NavLink>
@@ -85,7 +86,7 @@ function PCNav({ isOpen, setIsOpen }) {
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/artists"
-            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+            className="block mt-4 md:inline-block md:mt-0 text-white mr-4"
           >
             Artists
           </NavLink>
@@ -93,24 +94,24 @@ function PCNav({ isOpen, setIsOpen }) {
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/about"
-            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+            className="block mt-4 md:inline-block md:mt-0 text-white mr-4"
           >
             About
           </NavLink>
-          
+
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/zori_page"
-            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+            className="block mt-4 md:inline-block md:mt-0 text-white mr-4"
           >
-          ZoriPage
+            ZoriPage
           </NavLink>
           <NavLink
             onClick={() => setIsOpen(!isOpen)}
             to="/search"
-            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+            className="block mt-4 md:inline-block md:mt-0 text-white mr-4"
           >
-          Search
+            Search
           </NavLink>
         </div>
       </div>

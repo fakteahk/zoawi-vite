@@ -3,7 +3,6 @@ import { getSongs } from "../../services/apiSongs";
 // import { useMutation } from "@tanstack/react-query";
 // import { deleteSong } from "../../services/apiSongs";
 
-
 import { Link } from "react-router-dom";
 // import toast from "react-hot-toast";
 
@@ -25,7 +24,11 @@ export default function SongsTable() {
 }
 
 function SongRow({ song }) {
-  const { id: songId, title, artists: {name} } = song;
+  const {
+    id: songId,
+    title,
+    artists: { name },
+  } = song;
 
   // const queryClient = useQueryClient();
 
@@ -47,16 +50,16 @@ function SongRow({ song }) {
 
   return (
     <div
-          key={song.id}
-          className="bg-secondary/10 hover:bg-secondary cursor-pointer p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1 mb-2"
-        >
-          <div>
-            <Link to={`/songs/${songId}`}>
-              <p className="font-semibold">{title}</p>
-              <p className="text-primary">{name}</p>
-            </Link>
-            {/* <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button> */}
-          </div>
-        </div>
+      key={song.id}
+      className="bg-secondary/10 hover:bg-secondary/50 hover:ring-4 hover:ring-secondary/20 cursor-pointer p-4 rounded-sm shadow-sm border-2 border-secondary border-dashed font-atkinson text-lg sm:flex sm:space-x-1 mb-2"
+    >
+      <div>
+        <Link to={`/songs/${songId}`}>
+          <p className="font-semibold">{title}</p>
+          <p className="text-primary">{name}</p>
+        </Link>
+        {/* <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button> */}
+      </div>
+    </div>
   );
 }

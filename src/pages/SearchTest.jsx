@@ -47,7 +47,7 @@ export default function SearchTest() {
   };
 
   return (
-    <form className="w-[500px] relative">
+    <form className="relative w-[90vw]">
       <div className="relative">
         <input
           type="search"
@@ -59,7 +59,10 @@ export default function SearchTest() {
         {searchText ? (
           <button
             className="absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-background rounded-full"
-            onClick={() => setSearchText("")}
+            onClick={(e) => {
+              e.preventDefault();
+              setSearchText("");
+            }}
           >
             <AiOutlineClose />
           </button>
@@ -71,7 +74,7 @@ export default function SearchTest() {
       </div>
 
       {activeSearch.length > 0 && (
-        <div className="cursor-pointer absolute top-16 p-4 bg-primary text-white w-full rounded-xl left-1/2 -translate-x-1/2 flex flex-col gap-2">
+        <div className="cursor-pointer absolute p-4 top-16 z-20 bg-primary text-white w-full rounded-xl flex flex-col gap-2">
           {activeSearch.map((artist) => (
             <span key={artist.id}>{artist.name}</span>
           ))}
