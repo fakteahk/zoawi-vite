@@ -1,16 +1,24 @@
-import { Link } from "react-router-dom";
-import LyricsContent from "../features/lyrics/LyricsContent"
+import { useNavigate } from "react-router-dom";
+import LyricsContent from "../features/lyrics/LyricsContent";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
 function Lyrics() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="max-w-[720px]">
-      <div className="mb-4 flex text-sm justify-end">
-          <Link to="/songs" className="flex items-center gap-2 mr-4">
+        <div className="mb-4 flex text-sm justify-end">
+          <button
+            className="flex items-center gap-2 mr-4"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(-1);
+            }}
+          >
             <LiaArrowLeftSolid />
             Go back
-          </Link>
+          </button>
         </div>
         {/* Will contain lyrics of songs */}
         <LyricsContent />

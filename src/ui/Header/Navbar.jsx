@@ -59,17 +59,17 @@ const Navbar = () => {
             open ? "top-12" : "top-[-490px]"
           }`}
         >
-          {Links.map((link) => (
+          {Links.map((links) => (
             <li
-              className="md:ml-8 md:my-0 my-7 font-light font-atkinson"
-              key={link.name}
+              className="md:ml-6 md:my-0 my-7 font-light font-atkinson"
+              key={links.name}
             >
               <NavLink
-                to={link.link}
-                className="text-neutral-200 hover:text-secondary duration-500"
+                to={links.link}
+                className="text-neutral-200 hover:text-secondary hover:border-b-2 border-white duration-50 ease-in ml-2"
                 onClick={() => setOpen(false)}
               >
-                {link.name}
+                {links.name}
               </NavLink>
             </li>
           ))}
