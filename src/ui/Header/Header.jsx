@@ -105,6 +105,13 @@ function PCNav({ isOpen, setIsOpen }) {
           >
           ZoriPage
           </NavLink>
+          <NavLink
+            onClick={() => setIsOpen(!isOpen)}
+            to="/search"
+            className="block mt-4 sm:inline-block sm:mt-0 text-white mr-4"
+          >
+          Search
+          </NavLink>
         </div>
       </div>
     </>

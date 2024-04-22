@@ -12,6 +12,7 @@ import Lyrics from "./pages/Lyrics";
 import ArtistSongs from "./features/artists/ArtistSongs";
 import { Toaster } from "react-hot-toast";
 import AddArtistForm from "./features/artists/AddArtistForm";
+import SearchTest from "./pages/SearchTest";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +42,8 @@ export default function App() {
             <Route path="about" element={<About />}></Route>
 
             <Route path="zori_page" element={<h1>Zori Page</h1>}></Route>
+            <Route path="search" element={<SearchTest />}></Route>
+            
           </Route>
         </Routes>
       </BrowserRouter>

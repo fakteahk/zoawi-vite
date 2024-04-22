@@ -19,7 +19,7 @@ function Footer() {
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Resources
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="text-secondary dark:text-gray-400 font-medium">
                 <li className="mb-4">
                   <a href="https://react.dev/" className="hover:underline">
                     React
@@ -39,7 +39,7 @@ function Footer() {
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Follow us
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="text-secondary dark:text-gray-400 font-medium">
                 <li className="mb-4">
                   <a
                     href="https://github.com/theohk"
@@ -62,7 +62,7 @@ function Footer() {
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Legal
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="text-secondary dark:text-gray-400 font-medium">
                 <li className="mb-4">
                   <a href="#" className="hover:underline">
                     Privacy Policy
@@ -79,7 +79,7 @@ function Footer() {
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+          <span className="text-sm text-secondary sm:text-center dark:text-gray-400">
             © 2024{" "}
             <a href="https://beanscorp.com/" className="hover:underline">
               Beans Co™
@@ -89,7 +89,7 @@ function Footer() {
           <div className="flex mt-4 sm:justify-center sm:mt-0">
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+              className="text-secondary hover:text-gray-900 dark:hover:text-white"
             >
               <svg
                 className="w-4 h-4"
@@ -108,7 +108,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"
@@ -123,7 +123,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"
@@ -142,7 +142,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"
@@ -161,7 +161,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"

@@ -1,7 +1,10 @@
 import supabase from "./supabase";
 
 export async function getArtists() {
-  const { data, error } = await supabase.from("artists").select("*");
+  const { data, error } = await supabase
+    .from("artists")
+    .select("*, songs(*)")
+    .range(0,16);
 
   if (error) {
     console.error(error);

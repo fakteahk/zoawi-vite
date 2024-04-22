@@ -48,7 +48,7 @@ function SongRow({ song }) {
   return (
     <div
           key={song.id}
-          className="bg-secondary/30 hover:bg-secondary cursor-pointer p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
+          className="bg-secondary/10 hover:bg-secondary cursor-pointer p-4 rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1 mb-2"
         >
           <div>
             <Link to={`/songs/${songId}`}>
