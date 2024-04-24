@@ -13,7 +13,7 @@ import Lyrics from "./pages/Lyrics";
 import ArtistBio from "./features/artists/ArtistBio";
 import { Toaster } from "react-hot-toast";
 import AddArtistForm from "./features/artists/AddArtistForm";
-import SearchTest from "./pages/SearchTest";
+import SearchTest from "./pages/SearchTest copy";
 import Lab from "./pages/Lab";
 import AddSongForm from "./features/songs/AddSongForm";
 

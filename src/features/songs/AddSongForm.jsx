@@ -23,7 +23,7 @@ export default function AddSongForm() {
 
   useEffect(() => {
     const fetchArtists = async () => {
-      const artistList = await getArtists(); // Fetch the artists from your API
+      const artistList = await getArtists();
       setArtists(artistList);
     };
 

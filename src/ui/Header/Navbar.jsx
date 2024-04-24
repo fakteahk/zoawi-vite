@@ -23,7 +23,7 @@ const Navbar = () => {
   const [show, setShow] = useState(true);
   const scrollPos = useRef(0);
 
-  const navRef = useRef(); // Create a ref
+  const navRef = useRef();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
