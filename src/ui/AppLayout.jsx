@@ -10,7 +10,7 @@ function AppLayout() {
         <Navbar />
       </div>
 
-      <div className="flex flex-grow mx-auto max-w-7xl justify-center mt-16 pt-4">
+      <div className="mt-24 flex flex-col items-center justify-center">
         <Outlet />
       </div>
       <Footer />

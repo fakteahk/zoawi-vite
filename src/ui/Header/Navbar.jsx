@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MdMenu, MdClose } from "react-icons/md";
+import { MdMenu, MdClose, MdSearch } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -7,12 +7,27 @@ const Navbar = () => {
     { name: "Songs", link: "/songs" },
     { name: "Artists", link: "/artists" },
     { name: "About", link: "/about" },
-    { name: "Zori Page", link: "/zori_page" },
     { name: "Search", link: "/search" },
   ];
-  let [open, setOpen] = useState(false);
+  let [openNav, setOpenNav] = useState(false);
+  let [openSearch, setOpenSearch] = useState(false);
   const [show, setShow] = useState(true);
   const scrollPos = useRef(0);
+
+  const navRef = useRef(); // Create a ref
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setOpenNav(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -29,51 +44,76 @@ const Navbar = () => {
 
   return (
     <div
+      ref={navRef}
       className={`shadow-md w-full fixed top-0 left-0 transition-all duration-500 ease-in-out ${
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       <div className="md:flex items-center justify-between bg-primary py-4 md:px-10 px-7">
         {/* logo section */}
-
         <div className="font-bold text-md uppercase flex">
           <NavLink to="home" className="flex items-center">
             <img className="h-8 w-8" src="/catman.svg" alt="catman" />
-            <p className="ml-3 font-atkinson font-bold text-white/90">
-              CatMan Lyrics
-            </p>
+            <p className="ml-3  font-bold text-white/90">Zoawi</p>
           </NavLink>
         </div>
 
-        {/* Menu icon */}
+        {/* Search button */}
         <div
-          onClick={() => setOpen(!open)}
-          className="absolute text-background right-8 top-5 cursor-pointer md:hidden w-7 h-7"
+          className="fixed right-20 top-5 md:hidden text-white cursor-pointer hover:scale-110 "
+          onClick={() => setOpenSearch(true)}
         >
-          {open ? <MdClose size={24} /> : <MdMenu size={24} />}
+          <MdSearch size={24} />
         </div>
 
-        {/* linke items */}
+        {/* SearchBar */}
+
+        {/* {openSearch ? (
+          <div className="relative flex items-center justify-center w-[80vw] bg-yellow-500 z-50 shadow-md ">
+            <input
+              type="text"
+              className="w-full h-full px-4"
+              placeholder="Search..."
+            />
+            <button className="" onClick={() => setOpenSearch(false)}>
+              <MdClose size={24} />
+            </button>
+          </div>
+        ) : (
+          <div
+            className="fixed right-20 top-5 md:hidden text-white cursor-pointer hover:scale-110 "
+            onClick={() => setOpenSearch(true)}
+          >
+            <MdSearch size={24} />
+          </div>
+        )} */}
+
+        {/* Menu icon */}
+        <div
+          onClick={() => setOpenNav(!openNav)}
+          className="absolute text-background right-8 top-5 cursor-pointer md:hidden hover:scale-110 duration-300 ease-in-out"
+        >
+          {openNav ? <MdClose size={24} /> : <MdMenu size={24} />}
+        </div>
+
+        {/* link items */}
         <ul
           className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-primary md:bg-transparent md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in-out ${
-            open ? "top-12" : "top-[-490px]"
+            openNav ? "top-12" : "top-[-490px]"
           }`}
         >
           {Links.map((links) => (
-            <li
-              className="md:ml-6 md:my-0 my-7 font-light font-atkinson"
-              key={links.name}
-            >
+            <li className="md:ml-6 md:my-0 my-7 font-light " key={links.name}>
               <NavLink
                 to={links.link}
-                className="text-neutral-200 hover:text-secondary hover:border-b-2 border-white duration-50 ease-in ml-2"
-                onClick={() => setOpen(false)}
+                className="text-secondary hover:text-secondary/70 hover:border-b-2 border-white duration-50 ease-in ml-2"
+                onClick={() => setOpenNav(false)}
               >
                 {links.name}
               </NavLink>
             </li>
           ))}
-          <button className="btn bg-transparent text-teal-100 md:ml-8  border rounded-full font-semibold px-3 py-1 duration-500 md:static">
+          <button className="btn bg-transparent text-secondary md:ml-8  border rounded-full font-semibold px-3 py-1 duration-500 md:static">
             Login
           </button>
         </ul>

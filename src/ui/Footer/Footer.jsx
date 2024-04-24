@@ -4,32 +4,39 @@ function Footer() {
       <div className="w-full p-8 py-6 lg:py-8 bg-primary mt-10">
         <div className="md:flex md:justify-between">
           {
-          //   <div className="mb-6 md:mb-0">
-          //   <a
-          //     href="https://zoawi-vite.vercel.app/"
-          //     className="flex items-center"
-          //   >
-          //     <img src="/catman.svg" className="h-8 me-3" alt="CatMan Logo" />
-          //     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-          //       CatMan Lyrics
-          //     </span>
-          //   </a>
-          // </div>
+            //   <div className="mb-6 md:mb-0">
+            //   <a
+            //     href="https://zoawi-vite.vercel.app/"
+            //     className="flex items-center"
+            //   >
+            //     <img src="/catman.svg" className="h-8 me-3" alt="CatMan Logo" />
+            //     <span className="self-center text-2xl font-semibold whitespace-nowrap ">
+            //       CatMan Lyrics
+            //     </span>
+            //   </a>
+            // </div>
           }
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold text-secondary uppercase ">
                 Resources
               </h2>
-              <ul className="text-secondary dark:text-gray-400 font-medium">
+              <ul className="text-secondary font-medium">
                 <li className="mb-4">
-                  <a href="https://react.dev/" className="hover:underline">
+                  <a
+                    href="https://react.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
                     React
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://tailwindcss.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:underline"
                   >
                     Tailwind CSS
@@ -38,13 +45,15 @@ function Footer() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold text-secondary uppercase ">
                 Follow us
               </h2>
-              <ul className="text-secondary dark:text-gray-400 font-medium">
+              <ul className="text-secondary font-medium">
                 <li className="mb-4">
                   <a
                     href="https://github.com/theohk"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:underline "
                   >
                     Github
@@ -52,7 +61,9 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://instagram.com/beans_co"
+                    href="https://instagram.com/therock"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hover:underline"
                   >
                     Instagram
@@ -61,10 +72,10 @@ function Footer() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-sm font-semibold text-secondary uppercase ">
                 Legal
               </h2>
-              <ul className="text-secondary dark:text-gray-400 font-medium">
+              <ul className="text-secondary font-medium">
                 <li className="mb-4">
                   <a href="#" className="hover:underline">
                     Privacy Policy
@@ -81,7 +92,7 @@ function Footer() {
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-secondary sm:text-center dark:text-gray-400">
+          <span className="text-sm text-secondary sm:text-center">
             © 2024{" "}
             <a href="https://beanscorp.com/" className="hover:underline">
               Beans Co™
@@ -91,7 +102,7 @@ function Footer() {
           <div className="flex mt-4 sm:justify-center sm:mt-0">
             <a
               href="#"
-              className="text-secondary hover:text-gray-900 dark:hover:text-white"
+              className="text-secondary hover:text-secondary dark:hover:text-white"
             >
               <svg
                 className="w-4 h-4"
@@ -110,7 +121,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-secondary dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"
@@ -125,7 +136,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-secondary dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"
@@ -144,7 +155,7 @@ function Footer() {
             </a>
             <a
               href="#"
-              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
+              className="text-secondary hover:text-secondary dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"
@@ -162,8 +173,8 @@ function Footer() {
               <span className="sr-only">GitHub account</span>
             </a>
             <a
-              href="#"
-              className="text-secondary hover:text-gray-900 dark:hover:text-white ms-5"
+              href="/lab"
+              className="text-secondary hover:text-secondary dark:hover:text-white ms-5"
             >
               <svg
                 className="w-4 h-4"

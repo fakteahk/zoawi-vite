@@ -6,7 +6,6 @@ function Lyrics() {
   const navigate = useNavigate();
 
   return (
-    <>
       <div className="max-w-[720px]">
         <div className="mb-4 flex text-sm justify-end">
           <button
@@ -23,7 +22,6 @@ function Lyrics() {
         {/* Will contain lyrics of songs */}
         <LyricsContent />
       </div>
-    </>
   );
 }
 

@@ -2,22 +2,20 @@ import AboutCard from "../ui/AboutCard";
 
 export default function About() {
   return (
-    <>
-      <div className="max-w-2xl relative mx-4">
-        <p className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
-          <p className="mb-4 font-atkinson font-bold">About Us!</p>
-          <AboutCard />
-        </p>
-        <AboutText />
+    <div className="max-w-2xl mx-4">
+      <div className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
+        <p className="mb-4 font-bold">About Us!</p>
+        <AboutCard />
       </div>
-    </>
+      <AboutText />
+    </div>
   );
 }
 
 function AboutText() {
   return (
-    <div className="px-1 pt-3 font-atkinson">
-      CatMan Lyrics sprang to life in 2024, a brainchild of the dynamic duo,
+    <div className="px-1 pt-3 ">
+      Zoawi Lyrics sprang to life in 2024, a brainchild of the dynamic duo,
       Faktea and Zorini! Armed with their tech wizardry and a dash of spicy
       sauce, they embarked on a mission to unleash the magic of Mizo lyrics for
       all to enjoy. Why, you ask? Well, picture this: a digital desert devoid of
@@ -33,7 +31,7 @@ function AboutText() {
       sanctuary of song, where every click and tap would spark joy and wonder.
       <br />
       <br />
-      And thus, CatMan Lyrics was born, a beacon of quirky charm and modern
+      And thus, Zoawi Lyrics was born, a beacon of quirky charm and modern
       marvels in the vast expanse of the internet. So come one, come all, and
       join the feline frenzy of lyric exploration!
     </div>

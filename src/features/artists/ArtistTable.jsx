@@ -16,7 +16,7 @@ function ArtistTable() {
       {artist.map((artist) => (
         <NavLink to={`/artists/${artist.id}`} key={artist.id}>
           <ArtistCard imgSrc={artist.image_url}>
-              <p className="font-atkinson">{artist.name}</p>
+            <p className="">{artist.name}</p>
           </ArtistCard>
         </NavLink>
       ))}

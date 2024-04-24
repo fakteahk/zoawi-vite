@@ -9,14 +9,10 @@ export default function Header() {
     <>
       <nav className="shadow-xl flex flex-wrap p-5 flex-row items-center bg-primary/70 justify-between">
         {/* Catman */}
-        <div
-          className="flex items-center title-font font-medium text-gray-900 w-1/2 md:w-1/6"
-        >
+        <div className="flex items-center title-font font-medium text-gray-900 w-1/2 md:w-1/6">
           <NavLink to="/home">
-          <img className="h-8 w-8" src="/catman.svg" alt="catman" />
-          <p className="ml-3 font-atkinson font-bold text-white/80">
-            CatMan Lyrics
-          </p>
+            <img className="h-8 w-8" src="/catman.svg" alt="catman" />
+            <p className="ml-3  font-bold text-white/80">CatMan Lyrics</p>
           </NavLink>
         </div>
         {/* Hamburger Menu */}
@@ -26,7 +22,7 @@ export default function Header() {
         {/* Login */}
         <div className="hidden md:block md:w-1/6">
           <div className="flex justify-end  text-teal-100">
-            <button className="inline-flex items-center bg-white-500 rounded-full py-0.5 px-3 border-[1px] border-teal-300 text-sm font-atkinson">
+            <button className="inline-flex items-center bg-white-500 rounded-full py-0.5 px-3 border-[1px] border-teal-300 text-sm ">
               Login
             </button>
           </div>
@@ -62,7 +58,7 @@ function PCNav({ isOpen, setIsOpen }) {
   return (
     <>
       <div
-        className={`absolute bg-primary z-20 top-20 right-0 w-full block font-atkinson flex-grow md:flex md:items-center md:w-2/3 ${
+        className={`absolute bg-primary z-20 top-20 right-0 w-full block  flex-grow md:flex md:items-center md:w-2/3 ${
           isOpen ? "block" : "hidden"
         }`}
       >

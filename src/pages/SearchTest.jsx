@@ -1,85 +1,102 @@
-import { useState, useEffect } from "react";
-import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
-import supabase from "../services/supabase";
+import { useState, useEffect, useRef } from "react";
+import ProductList from "../features/search/ProductList";
+import SearchInput from "../features/search/SearchInput";
 
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+const AutocompleteSearchBar = () => {
+  const [query, setQuery] = useState("");
+  const [products, setProducts] = useState([]);
+  const [selectedProductIndex, setSelectedProductIndex] = useState(-1);
+  const [searchResults, setSearchResults] = useState([]);
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
+    const fetchProducts = async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const data = await response.json();
+      setProducts(data);
     };
-  }, [value, delay]);
 
-  return debouncedValue;
-}
+    fetchProducts();
+  }, []);
 
-export default function SearchTest() {
-  const [activeSearch, setActiveSearch] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const debouncedSearchTerm = useDebounce(searchText, 250);
-
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      handleSearch(debouncedSearchTerm);
-    } else {
-      setActiveSearch([]);
-    }
-  }, [debouncedSearchTerm]);
-
-  const handleSearch = async (value) => {
-    const { data, error } = await supabase
-      .from("artists")
-      .select()
-      .ilike("name", `%${value}%`)
-      .limit(10);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    setActiveSearch(data);
+  const handleQueryChange = (event) => {
+    setQuery(event.target.value);
+    setSelectedProductIndex(-1);
+    setSearchResults(
+      products.filter((product) =>
+        product.title.toLowerCase().includes(event.target.value.toLowerCase())
+      )
+    );
   };
 
-  return (
-    <form className="relative w-[90vw]">
-      <div className="relative">
-        <input
-          type="search"
-          placeholder="Type Here"
-          className="w-full p-4 rounded-xl"
-          onChange={(e) => setSearchText(e.target.value)}
-          value={searchText}
-        />
-        {searchText ? (
-          <button
-            className="absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-background rounded-full"
-            onClick={(e) => {
-              e.preventDefault();
-              setSearchText("");
-            }}
-          >
-            <AiOutlineClose />
-          </button>
-        ) : (
-          <button className="absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-background rounded-full">
-            <AiOutlineSearch />
-          </button>
-        )}
-      </div>
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      setSelectedProductIndex((prevIndex) =>
+        prevIndex === -1 ? searchResults.length - 1 : prevIndex - 1
+      );
+    } else if (event.key === "ArrowDown") {
+      setSelectedProductIndex((prevIndex) =>
+        prevIndex === searchResults.length - 1 ? -1 : prevIndex + 1
+      );
+    } else if (event.key === "Enter") {
+      if (selectedProductIndex !== -1) {
+        const selectedProduct = searchResults[selectedProductIndex];
+        alert(`You selected ${selectedProduct.title}`);
+        setQuery("");
+        setSelectedProductIndex(-1);
+        setSearchResults([]);
+      }
+    }
+  };
 
-      {activeSearch.length > 0 && (
-        <div className="cursor-pointer absolute p-4 top-16 z-20 bg-primary text-white w-full rounded-xl flex flex-col gap-2">
-          {activeSearch.map((artist) => (
-            <span key={artist.id}>{artist.name}</span>
-          ))}
-        </div>
+  const handleProductClick = (product) => {
+    alert(`You selected ${product.title}`);
+    setQuery("");
+    setSelectedProductIndex(-1);
+  };
+
+  const scrollActiveProductIntoView = (index) => {
+    const activeProduct = document.getElementById(`product-${index}`);
+    if (activeProduct) {
+      activeProduct.scrollIntoView({
+        block: "nearest",
+        inline: "start",
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (selectedProductIndex !== -1) {
+      scrollActiveProductIntoView(selectedProductIndex);
+    }
+  }, [selectedProductIndex]);
+
+  return (
+    <div className="flex flex-col mt-20 ring-2">
+      <SearchInput
+        className={`transform transition-all duration-300 ease-in-out ${
+          query !== "" && searchResults.length > 0 ? "w-full" : "w-12"
+        }`}
+        value={query}
+        onChange={handleQueryChange}
+        onKeyDown={handleKeyDown}
+        inputRef={inputRef}
+        placeholder="Search products"
+      />
+
+      {query !== "" && searchResults.length > 0 && (
+        <ProductList
+          className={`transition-all duration-200 ease-in-out ${
+            query !== "" && searchResults.length > 0 ? "w-full" : ""
+          }`}
+          products={searchResults}
+          selectedProductIndex={selectedProductIndex}
+          handleProductClick={handleProductClick}
+        />
       )}
-    </form>
+    </div>
   );
-}
+};
+
+export default AutocompleteSearchBar;

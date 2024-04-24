@@ -1,12 +1,18 @@
+import { ModeToggle } from "@/components/ui/modetoggle";
+import Search from "@/components/ui/search";
+
 function Home() {
   return (
-    <>
-    <div className="">
-      <h1 className="text-2xl font-bold">Home</h1>
-      <p className="mt-4">Welcome to the home page</p>
-      <p>Hi</p>
+    <div className="flex flex-col gap-10 justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
+        Theme Toggle
+        <ModeToggle />
+      </div>
+      <div className="flex flex-col justify-center items-center">
+        Search Bar concept
+        <Search />
+      </div>
     </div>
-    </>
   );
 }
 

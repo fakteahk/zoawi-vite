@@ -42,7 +42,7 @@ function ArtistSongs() {
           <img
             src={songs[0].artists.image_url}
             alt={songs[0].artists.name}
-            className=" w-screen h-72 object-cover"
+            className=" w-screen h-72 object-cover transform -translate-y-24 "
           />
         )}
         <div className="pt-4">{songs[0].artists.name}</div>
@@ -51,7 +51,7 @@ function ArtistSongs() {
         {songs.map((song) => (
           <div
             key={song.id}
-            className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md font-atkinson text-lg sm:flex sm:space-x-1"
+            className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md  text-lg sm:flex sm:space-x-1"
           >
             <Link to={`/songs/${song.id}`}>
               <p className="">{song.title}</p>
