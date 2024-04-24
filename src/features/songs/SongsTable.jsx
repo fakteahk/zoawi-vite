@@ -27,8 +27,10 @@ function SongRow({ song }) {
   const {
     id: songId,
     title,
-    artists: { name },
+    artists,
   } = song;
+
+  const artistName = artists ? artists.name : 'Unknown';
 
   // const queryClient = useQueryClient();
 
@@ -56,7 +58,7 @@ function SongRow({ song }) {
       <div>
         <Link to={`/songs/${songId}`}>
           <p className="font-semibold">{title}</p>
-          <p className="text-primary">{name}</p>
+          <p className="text-primary">{artistName}</p>
         </Link>
         {/* <button onClick={() => mutate(songId)} disabled={isDeleting}>Delete</button> */}
       </div>

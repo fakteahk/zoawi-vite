@@ -6,9 +6,10 @@ import toast from "react-hot-toast";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
 import { createArtist } from "../../services/apiArtists";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AddArtistForm() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset } = useForm();
 
@@ -34,11 +35,17 @@ export default function AddArtistForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12 px-4">
           <div className="border-b border-gray-900/10 pb-12">
-            <div className="mb-4 flex justify-end">
-              <Link to="/artists" className="flex items-center gap-2 mr-4">
+            <div className="mb-4 flex text-sm justify-end">
+              <button
+                className="flex items-center gap-2 mr-4"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(-1);
+                }}
+              >
                 <LiaArrowLeftSolid />
                 Go back
-              </Link>
+              </button>
             </div>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Add Artist

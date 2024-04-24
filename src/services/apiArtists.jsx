@@ -28,3 +28,34 @@ export async function createArtist(newArtist) {
 
   return data;
 }
+
+export async function deleteArtist(artistId) {
+  const { data, error } = await supabase
+    .from("artists")
+    .delete()
+    .match({ id: artistId });
+
+  if (error) {
+    console.error(error);
+    throw new Error("Artist could not be deleted");
+  }
+
+  return data;
+}
+
+export async function createArtistFromSongs(newArtist) {
+  const { name } = newArtist;
+
+  let { data, error } = await supabase
+    .from("artists")
+    .insert([{ name }])
+    .single()
+    .select()
+    
+  if (error) {
+    console.error(error);
+    throw new Error("Artist could not be created");
+  }
+
+  return data;
+}

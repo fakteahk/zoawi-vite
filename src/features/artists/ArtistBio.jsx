@@ -1,9 +1,11 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getSongOfArtist } from "../../services/apiSongs";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
-function ArtistSongs() {
+function ArtistBio() {
+  const navigate = useNavigate();
+
   const { id: artistId } = useParams();
   const { isLoading, data: songs } = useQuery({
     queryKey: ["songs", artistId],
@@ -30,24 +32,30 @@ function ArtistSongs() {
 
   return (
     <div>
-      {/* Go back arrow */}
-      <div className="absolute mb-4 flex text-white right-0 pt-2">
-        <Link to="/artists" className="flex text-sm items-center gap-2 mr-4">
-          <LiaArrowLeftSolid />
-          Go back
-        </Link>
-      </div>
       <div className="flex flex-col items-center justify-center text-xl mb-4">
         {songs[0].artists.image_url && (
           <img
             src={songs[0].artists.image_url}
             alt={songs[0].artists.name}
-            className=" w-screen h-72 object-cover transform -translate-y-24 "
+            className=" w-screen h-72 object-cover transform -translate-y-10 "
           />
         )}
-        <div className="pt-4">{songs[0].artists.name}</div>
+        <div className="">{songs[0].artists.name}</div>
       </div>
       <div className="grid gap-2 p-2 min-w-96">
+        {/* Go back arrow */}
+        <div className="mb-4 flex text-sm justify-end">
+          <button
+            className="flex items-center gap-2 mr-4"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(-1);
+            }}
+          >
+            <LiaArrowLeftSolid />
+            Go back
+          </button>
+        </div>
         {songs.map((song) => (
           <div
             key={song.id}
@@ -63,4 +71,4 @@ function ArtistSongs() {
   );
 }
 
-export default ArtistSongs;
+export default ArtistBio;

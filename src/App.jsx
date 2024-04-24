@@ -10,11 +10,12 @@ import Artists from "./pages/Artists";
 import About from "./pages/About";
 import Lyrics from "./pages/Lyrics";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import ArtistSongs from "./features/artists/ArtistSongs";
+import ArtistBio from "./features/artists/ArtistBio";
 import { Toaster } from "react-hot-toast";
 import AddArtistForm from "./features/artists/AddArtistForm";
 import SearchTest from "./pages/SearchTest";
 import Lab from "./pages/Lab";
+import AddSongForm from "./features/songs/AddSongForm";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,9 +38,10 @@ export default function App() {
 
             <Route path="songs" element={<Songs />}></Route>
             <Route path="songs/:id" element={<Lyrics />}></Route>
+            <Route path="addSong" element={<AddSongForm />}></Route>
 
             <Route path="artists" element={<Artists />}></Route>
-            <Route path="artists/:id" element={<ArtistSongs />}></Route>
+            <Route path="artists/:id" element={<ArtistBio />}></Route>
             <Route path="addArtist" element={<AddArtistForm />}></Route>
             
             <Route path="about" element={<About />}></Route>

@@ -2,6 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { MdMenu, MdClose, MdSearch } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 const Navbar = () => {
   let Links = [
     { name: "Songs", link: "/songs" },
@@ -58,35 +67,32 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Search button */}
-        <div
-          className="fixed right-20 top-5 md:hidden text-white cursor-pointer hover:scale-110 "
-          onClick={() => setOpenSearch(true)}
-        >
-          <MdSearch size={24} />
-        </div>
-
         {/* SearchBar */}
-
-        {/* {openSearch ? (
-          <div className="relative flex items-center justify-center w-[80vw] bg-yellow-500 z-50 shadow-md ">
-            <input
-              type="text"
-              className="w-full h-full px-4"
-              placeholder="Search..."
-            />
-            <button className="" onClick={() => setOpenSearch(false)}>
-              <MdClose size={24} />
-            </button>
-          </div>
-        ) : (
-          <div
-            className="fixed right-20 top-5 md:hidden text-white cursor-pointer hover:scale-110 "
-            onClick={() => setOpenSearch(true)}
-          >
-            <MdSearch size={24} />
-          </div>
-        )} */}
+        <div className="fixed right-20 top-5 md:hidden text-white cursor-pointer hover:scale-110 ">
+          <Dialog>
+            <DialogTrigger>
+              <MdSearch size={24} />
+            </DialogTrigger>
+            <DialogContent className="absolute top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
+              <DialogHeader>
+                <DialogTitle>Search</DialogTitle>
+                <DialogDescription>
+                  Search for songs, artists, albums
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex items-center justify-center">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="border-b-2 border-primary/60 outline-none flex-grow"
+                />
+                <button className="btn bg-primary text-white ml-2 p-1 px-2 rounded-full hover:scale-105 transition-transform ease-in-out duration-300">
+                  Search
+                </button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
 
         {/* Menu icon */}
         <div
