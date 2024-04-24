@@ -79,7 +79,7 @@ export default function AddSongForm() {
                 className="flex items-center gap-2 mr-4"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate(-1);
+                  navigate('/home');
                 }}
               >
                 <LiaArrowLeftSolid />
