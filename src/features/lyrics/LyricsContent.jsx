@@ -1,25 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLyrics } from "../../services/apiLyrics";
+import { getSong } from "../../services/apiSongs";
 import { useParams } from "react-router-dom";
 
 function LyricsContent() {
   const { id: songId } = useParams();
-  const { isLoading, data: lyrics } = useQuery({
-    queryKey: ["lyrics", songId],
-    queryFn: () => getLyrics(songId),
+  const { isLoading, data: song } = useQuery({
+    queryKey: ["song", songId],
+    queryFn: () => getSong(songId),
   });
 
-  console.log(lyrics);
+  console.log(song);
 
   if (isLoading) return <p>Loading</p>;
 
   return (
-    <div className="pl-4 h-screen sm:w-[540px] w-[24rem] md:w-[720px]">
-      <div className="mt-4 font-semibold">{lyrics[0].songs.title}</div>
-      <div className="mt-1 pb-12">{lyrics[0].songs.artists ? lyrics[0].songs.artists.name : 'Unknown'}</div>
-      {lyrics.map((lyrics) => (
-        <div key={lyrics.id} className="mt-4">
-          <p className="flex items-center" dangerouslySetInnerHTML={{ __html: lyrics.lyrics }}></p>
+    <div className="pl-4 min-h-screen sm:w-[540px] w-[24rem] md:w-[720px]">
+      <div className="mt-4 font-semibold">{song[0].title}</div>
+      <div className="mt-1 pb-12">
+        {song[0].artists.name ? song[0].artists.name : "Unknown"}
+      </div>
+      {song.map((song) => (
+        <div key={song.id} className="mt-4">
+          {song.lyrics ? (
+            <p
+              className="flex items-center"
+              dangerouslySetInnerHTML={{ __html: song.lyrics }}
+            ></p>
+          ) : (
+            "No lyrics found"
+          )}
         </div>
       ))}
     </div>

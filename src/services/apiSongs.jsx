@@ -16,6 +16,27 @@ export async function getSongs() {
   return data;
 }
 
+export async function getSong(songId) {
+  let { data, error } = await supabase
+    .from("songs")
+    .select(
+      `
+    *,
+    artists (
+        name
+    )
+    `
+    )
+    .eq("id", songId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Songs could not be loaded");
+  }
+
+  return data;
+}
+
 export async function getSongOfArtist(artistId) {
   let { data: songs, error } = await supabase
     .from("songs")
@@ -42,6 +63,7 @@ export async function getSongOfArtist(artistId) {
   return songs;
 }
 
+
 //Delete stuff
 
 export async function deleteSong(songId) {
@@ -58,26 +80,25 @@ export async function createSong(newSong) {
 
   let { data, error } = await supabase
     .from("songs")
-    .insert([{ title, artist_id }])
+    .insert([{ title, artist_id, lyrics }])
     .single()
-    .select()
+    .select();
 
   if (error) {
     console.error(error);
     throw new Error("Song could not be created");
   }
 
-  const song_id = data.id;
+  // const song_id = data.id;
 
+  // const { error: lyricsError } = await supabase
+  //   .from("lyrics")
+  //   .insert([{ song_id, lyrics }]);
 
-  const { error: lyricsError } = await supabase
-    .from("lyrics")
-    .insert([{ song_id, lyrics }]);
-
-  if (lyricsError) {
-    console.error(lyricsError);
-    throw new Error("Lyrics could not be created");
-  }
+  // if (lyricsError) {
+  //   console.error(lyricsError);
+  //   throw new Error("Lyrics could not be created");
+  // }
   return data;
 }
 
@@ -86,30 +107,30 @@ export async function createSong(newSong) {
 async function getSongById(id) {
   try {
     let { data: song, error: songError } = await supabase
-      .from('songs')
-      .select('*')
-      .eq('id', id)
+      .from("songs")
+      .select("*")
+      .eq("id", id)
       .single();
 
     if (songError) {
-      console.error('Error fetching song: ', songError);
+      console.error("Error fetching song: ", songError);
       return null;
     }
 
     let { data: lyrics, error: lyricsError } = await supabase
-      .from('lyrics')
-      .select('*')
-      .eq('song_id', id)
+      .from("lyrics")
+      .select("*")
+      .eq("song_id", id)
       .single();
 
     if (lyricsError) {
-      console.error('Error fetching lyrics: ', lyricsError);
+      console.error("Error fetching lyrics: ", lyricsError);
       return null;
     }
 
     return { ...song, lyrics };
   } catch (error) {
-    console.error('Unexpected error: ', error);
+    console.error("Unexpected error: ", error);
     return null;
   }
 }
@@ -124,8 +145,7 @@ export async function updateSong(newSong) {
     .from("songs")
     .insert([{ title, artist_id }])
     .single()
-    .select()
-    .single()
+    .select();
 
   if (error) {
     console.error(error);
@@ -133,7 +153,6 @@ export async function updateSong(newSong) {
   }
 
   const song_id = data.id;
-
 
   const { error: lyricsError } = await supabase
     .from("lyrics")
@@ -145,5 +164,3 @@ export async function updateSong(newSong) {
   }
   return data;
 }
-
-

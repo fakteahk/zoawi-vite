@@ -1,10 +1,14 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getSongOfArtist } from "../../services/apiSongs";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
 function ArtistBio() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const imageUrl = location.state?.imageUrl;
+  const artistName = location.state?.artistName;
+  const example = location.state?.example;
 
   const { id: artistId } = useParams();
   const { isLoading, data: songs } = useQuery({
@@ -33,14 +37,14 @@ function ArtistBio() {
   return (
     <div>
       <div className="flex flex-col items-center justify-center text-xl mb-4">
-        {songs[0].artists.image_url && (
+        {imageUrl && (
           <img
-            src={songs[0].artists.image_url}
+            src={imageUrl}
             alt={songs[0].artists.name}
             className=" w-screen h-72 object-cover transform -translate-y-10 "
           />
         )}
-        <div className="">{songs[0].artists.name}</div>
+        <div className="">{artistName}</div>
       </div>
       <div className="grid gap-2 p-2 min-w-96">
         {/* Go back arrow */}
