@@ -7,7 +7,6 @@ function ArtistTable() {
   const { isLoading, data: artist } = useQuery({
     queryKey: ["artist"],
     queryFn: getArtists,
-    staleTime: 1000 * 60 * 5,
   });
 
   const navigate = useNavigate();

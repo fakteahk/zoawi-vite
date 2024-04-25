@@ -1,16 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getSongsForHome } from "../../services/apiSongs";
-import catman from "/catman.svg";
 
 export default function ListHomeSongs() {
   const { isLoading: isLoading, data: songs } = useQuery({
     queryKey: ["songs"],
     queryFn: getSongsForHome,
-    
   });
 
-  console.log(songs)
+  console.log(songs);
 
   if (isLoading) return <p>Loading</p>;
 
@@ -20,35 +18,44 @@ export default function ListHomeSongs() {
         <table className="w-full text-left">
           <thead className="bg-gray-100 dark:bg-gray-800">
             <tr>
-              <th className="px-4 py-3 font-medium hidden md:block text-center border-r">#</th>
+              <th className="px-4 py-3 font-medium hidden md:block text-center border-r">
+                #
+              </th>
               <th className="px-4 py-3 font-medium">Song</th>
               <th className="px-4 py-3 font-medium text-left">Artist</th>
             </tr>
           </thead>
           <tbody>
             {songs.map((song, index) => (
-            <tr className="border-b dark:border-gray-800" key={song.id}>
-            <td className="px-4 py-3 font-medium hidden md:table-cell align-middle text-center border-r">{index+1}</td>
-              <td className="px-4 py-3 text-left font-medium">{song.title}</td>
-              <td className="px-4 py-3 flex items-center gap-3">
-                <div className="flex-shrink-0">
-                  <img
-                    alt="artist"
-                    className="rounded"
-                    height={40}
-                    src={song.artists?.image_url || ""}
-                    style={{
-                      aspectRatio: "40/40",
-                      objectFit: "cover",
-                    }}
-                    width={40}
-                  />
-                </div>
-                <div>
-                  <h3 className="font-medium">{song.artists?.name || 'Undefined'}</h3>
-                </div>
-              </td>
-            </tr>))}
+              <tr className="border-b dark:border-gray-800" key={song.id}>
+                <td className="px-4 py-3 font-medium hidden md:table-cell align-middle text-center border-r">
+                  {index + 1}
+                </td>
+                <td className="px-4 py-3 text-left font-medium">
+                  {song.title}
+                </td>
+                <td className="px-4 py-3 flex items-center gap-3">
+                  <div className="flex-shrink-0">
+                    <img
+                      alt="artist"
+                      className="rounded"
+                      height={40}
+                      src={song.artists?.image_url || ""}
+                      style={{
+                        aspectRatio: "40/40",
+                        objectFit: "cover",
+                      }}
+                      width={40}
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-medium">
+                      {song.artists?.name || "Undefined"}
+                    </h3>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
