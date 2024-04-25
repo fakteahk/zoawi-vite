@@ -15,6 +15,20 @@ export async function getArtists() {
 
   return data;
 }
+export async function getArtistsForHomepage() {
+  const { data, error } = await supabase
+    .from("artists")
+    .select("*")
+    .order("id", { ascending: true });
+  // .range(0,16);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Artists could not be loaded");
+  }
+
+  return data;
+}
 
 // https://pwakmdomurtaxavvnhjk.supabase.co/storage/v1/object/public/artist_image/michael%20m%20sailo.jpeg
 

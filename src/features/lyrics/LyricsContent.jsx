@@ -23,7 +23,7 @@ function LyricsContent() {
         <div key={song.id} className="mt-4">
           {song.lyrics ? (
             <p
-              className="flex items-center"
+              className="items-center"
               dangerouslySetInnerHTML={{ __html: song.lyrics }}
             ></p>
           ) : (
