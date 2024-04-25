@@ -5,7 +5,7 @@ import Navbar from "./Header/Navbar";
 
 function AppLayout() {
   return (
-    <div className="flex flex-col min-h-screen justify-between">
+    <div className=" sticky flex flex-col min-h-screen justify-between">
       <div className="w-full fixed z-10">
         <Navbar />
       </div>

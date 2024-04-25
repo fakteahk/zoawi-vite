@@ -19,9 +19,9 @@ const Navbar = () => {
     { name: "Search", link: "/search" },
   ];
   let [openNav, setOpenNav] = useState(false);
-  let [openSearch, setOpenSearch] = useState(false);
+  // let [openSearch, setOpenSearch] = useState(false);
   const [show, setShow] = useState(true);
-  const scrollPos = useRef(0);
+  // const scrollPos = useRef(0);
 
   const navRef = useRef();
 
@@ -38,18 +38,18 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollPos]);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [scrollPos]);
 
-  const handleScroll = () => {
-    const currentScrollPos = document.body.getBoundingClientRect().top;
-    setShow(currentScrollPos > scrollPos.current);
-    scrollPos.current = currentScrollPos;
-  };
+  // const handleScroll = () => {
+  //   const currentScrollPos = document.body.getBoundingClientRect().top;
+  //   setShow(currentScrollPos > scrollPos.current);
+  //   scrollPos.current = currentScrollPos;
+  // };
 
   return (
     <div
@@ -58,7 +58,7 @@ const Navbar = () => {
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="md:flex items-center justify-between bg-primary py-4 md:px-10 px-7">
+      <div className="md:flex items-center justify-between bg-primary py-3 md:px-10 px-7">
         {/* logo section */}
         <div className="font-bold text-md uppercase flex">
           <NavLink to="home" className="flex items-center">
@@ -68,12 +68,12 @@ const Navbar = () => {
         </div>
 
         {/* SearchBar */}
-        <div className="fixed right-20 top-5 md:hidden text-white cursor-pointer hover:scale-110 ">
+        <div className="absolute right-20 top-4 md:hidden text-white cursor-pointer hover:scale-110 ">
           <Dialog>
             <DialogTrigger>
               <MdSearch size={24} />
             </DialogTrigger>
-            <DialogContent className="absolute top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
+            <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
               <DialogHeader>
                 <DialogTitle>Search</DialogTitle>
                 <DialogDescription>
@@ -97,7 +97,7 @@ const Navbar = () => {
         {/* Menu icon */}
         <div
           onClick={() => setOpenNav(!openNav)}
-          className="absolute text-background right-8 top-5 cursor-pointer md:hidden hover:scale-110 duration-300 ease-in-out"
+          className="absolute text-background right-8 top-4 cursor-pointer md:hidden hover:scale-110 duration-300 ease-in-out"
         >
           {openNav ? <MdClose size={24} /> : <MdMenu size={24} />}
         </div>
