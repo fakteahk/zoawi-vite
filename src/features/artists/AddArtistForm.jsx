@@ -1,17 +1,19 @@
-import { LiaUserCircle } from "react-icons/lia";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { LiaUserCircle, LiaArrowLeftSolid } from "react-icons/lia";
 import toast from "react-hot-toast";
 
-import { LiaArrowLeftSolid } from "react-icons/lia";
-
 import { createArtist } from "../../services/apiArtists";
-import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export default function AddArtistForm() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset } = useForm();
+  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: createArtist,
@@ -27,7 +29,7 @@ export default function AddArtistForm() {
 
   function onSubmit(data) {
     console.log(data);
-    mutate(data);
+    mutate({ ...data, image_url: selectedFile });
   }
 
   return (
@@ -73,7 +75,7 @@ export default function AddArtistForm() {
                       name="name"
                       id="name"
                       autoComplete="name"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                      className="block flex-1 border-2 rounded-md bg-transparent py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="Artist"
                       {...register("name")}
                     />
@@ -93,34 +95,74 @@ export default function AddArtistForm() {
                     id="bio"
                     name="bio"
                     rows={3}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-secondary/50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6 bg-transparent"
+                    className="block w-full rounded-md border-2 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-secondary/50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6 bg-transparent"
                     defaultValue={""}
                     {...register("bio")}
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
+                <p className="mt-3 font-thin text-sm leading-6 text-gray-600">
                   Add some relevant details about the artist.
                 </p>
               </div>
 
               <div className="col-span-full">
                 <label
-                  htmlFor="photo"
+                  htmlFor="image_url"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Photo
+                  Image
                 </label>
-                <div className="mt-2 flex items-center gap-x-3">
-                  <LiaUserCircle
-                    className="h-12 w-12 text-slate-700"
-                    aria-hidden="true"
+                <div className=" font-thin text-sm">
+                  Add a photo for the artist
+                </div>
+                <div className="flex flex-col gap-4 mt-2">
+                  {selectedImageUrl ? (
+                    <div className="flex gap-2">
+                      <img
+                        src={selectedImageUrl}
+                        alt="Selected"
+                        className="w-28 h-28 object-cover rounded-md ml-1"
+                      />
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setSelectedImageUrl(null);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-28 h-28 rounded-xl bg-primary ml-1">
+                      <LiaUserCircle className="object-cover w-full h-full text-secondary" />
+                    </div>
+                  )}
+
+                  <label htmlFor="image_url" className="cursor-pointer">
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        document.getElementById("image").click();
+                      }}
+                    >
+                      Upload Image
+                    </Button>
+                  </label>
+                  <input
+                    className="hidden"
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                    {...register("image_url")}
+                    onChange={(e) => {
+                      setSelectedImageUrl(
+                        URL.createObjectURL(e.target.files[0])
+                      );
+                      setSelectedFile(e.target.files[0]); // Store the selected file
+                    }}
                   />
-                  <button
-                    type="button"
-                    className="rounded-md bg-primary px-2.5 py-1.5 text-sm font-medium text-gray-200 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary/70"
-                  >
-                    Change
-                  </button>
                 </div>
               </div>
             </div>

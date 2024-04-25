@@ -12,6 +12,9 @@ function Lab() {
           <button className="bg-primary/70 hover:bg-primary text-white font-bold py-2 px-4 mt-4 rounded">
             <Link to="/addSong">Add new Song</Link>
           </button>
+          <button className="bg-primary/70 hover:bg-primary text-white font-bold py-2 px-4 mt-4 rounded">
+            <Link to="/editSong">Edit a Song*</Link>
+          </button>
         </div>
   );
 }

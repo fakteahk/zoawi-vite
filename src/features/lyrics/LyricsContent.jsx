@@ -19,7 +19,7 @@ function LyricsContent() {
       <div className="mt-1 pb-12">{lyrics[0].songs.artists ? lyrics[0].songs.artists.name : 'Unknown'}</div>
       {lyrics.map((lyrics) => (
         <div key={lyrics.id} className="mt-4">
-          <p className="flex justify-center items-center">{lyrics.lyrics}</p>
+          <p className="flex items-center" dangerouslySetInnerHTML={{ __html: lyrics.lyrics }}></p>
         </div>
       ))}
     </div>

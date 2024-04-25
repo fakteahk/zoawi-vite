@@ -1,36 +1,54 @@
 import { useForm, Controller } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Creatable from "react-select/creatable";
-import toast from "react-hot-toast";
-
-import { LiaArrowLeftSolid } from "react-icons/lia";
-
-import { createSong } from "../../services/apiSongs";
-import { getArtists, createArtistFromSongs } from "../../services/apiArtists"; // Import your API function
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function AddSongForm() {
+import Creatable from "react-select/creatable";
+import toast from "react-hot-toast";
+import { LiaArrowLeftSolid } from "react-icons/lia";
+
+import { createSong, getSongById } from "../../services/apiSongs";
+import { getSongs } from "../../services/apiSongs";
+import { getArtists, createArtistFromSongs } from "../../services/apiArtists"; // Import your API function
+
+export default function EditSongForm() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { register, handleSubmit, reset, control, formState } = useForm();
+  const { register, handleSubmit, reset, control, formState, watch, setValue } =
+    useForm();
   const [artists, setArtists] = useState([]);
+  const [songs, setSongs] = useState([]);
+  const [selectedSong, setSelectedSong] = useState(null);
 
-  const options = artists.map((artist) => ({
-    value: artist.id,
-    label: artist.name,
+  const options = songs.map((song) => ({
+    value: song.id,
+    label: song.title,
   }));
 
   const { errors } = formState;
 
+  const watchSong = watch("song_id");
+
   useEffect(() => {
-    const fetchArtists = async () => {
-      const artistList = await getArtists();
-      setArtists(artistList);
+    const fetchSongs = async () => {
+      const songList = await getSongs();
+      setSongs(songList);
     };
 
-    fetchArtists();
+    fetchSongs();
   }, []);
+
+  useEffect(() => {
+    if (watchSong && selectedSong) {
+      setValue("lyrics", selectedSong.lyrics);
+    }
+  }, [watchSong, selectedSong, setValue]);
+
+  useEffect(() => {
+    if (selectedSong && selectedSong.lyrics) {
+      setValue("lyrics", selectedSong.lyrics.lyrics);
+    }
+  }, [selectedSong, setValue]);
 
   const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: createSong,
@@ -73,6 +91,13 @@ export default function AddSongForm() {
 
   const handleSelectChange = async (selectedOption, field) => {
     field.onChange(selectedOption || null);
+    if (selectedOption) {
+      const song = await getSongById(selectedOption.value);
+      setSelectedSong(song);
+      console.log(song);
+    } else {
+      setSelectedSong(null);
+    }
   };
 
   return (
@@ -93,7 +118,7 @@ export default function AddSongForm() {
               </button>
             </div>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Add Song
+              Edit Song
             </h2>
             <p className="mt-1  leading-6 text-gray-600">
               This information will be displayed publicly so be careful what you
@@ -101,7 +126,7 @@ export default function AddSongForm() {
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
+              {/* <div className="sm:col-span-4">
                 <label
                   htmlFor="title"
                   className="block  font-medium leading-6 text-gray-900"
@@ -128,19 +153,19 @@ export default function AddSongForm() {
                     </div>
                   )}
                 </div>
-              </div>
+              </div> */}
 
               <div className="sm:col-span-4">
                 <label
                   htmlFor="artist"
                   className="block  font-medium leading-6 text-gray-900"
                 >
-                  Artist
+                  SongName
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-secondary/50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-full">
                     <Controller
-                      name="artist_id"
+                      name="song_id"
                       control={control}
                       render={({ field }) => (
                         <Creatable
@@ -172,7 +197,11 @@ export default function AddSongForm() {
                     rows={3}
                     placeholder=" Add lyrics here"
                     className="p-2 block w-full placeholder:font-thin rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-secondary/50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm: sm:leading-6 bg-transparent"
-                    defaultValue={""}
+                    defaultValue={
+                      selectedSong && selectedSong.lyrics
+                        ? selectedSong.lyrics.lyrics
+                        : ""
+                    }
                     {...register("lyrics", {
                       required: "Lyrics are required",
                     })}
@@ -197,7 +226,7 @@ export default function AddSongForm() {
           </button>
           <button
             type="submit"
-            className="rounded-md bg-primary px-3 py-2  font-semibold text-white shadow-sm hover:bg-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="disabled rounded-md bg-primary px-3 py-2  font-semibold text-white shadow-sm hover:bg-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             disabled={isCreating}
           >
             Save
