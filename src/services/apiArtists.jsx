@@ -1,6 +1,5 @@
 import supabase, { supabaseUrl } from "./supabase";
 
-
 export async function getArtists() {
   const { data, error } = await supabase
     .from("artists")
@@ -19,8 +18,8 @@ export async function getArtistsForHomepage() {
   const { data, error } = await supabase
     .from("artists")
     .select("*")
-    .order("id", { ascending: true });
-  // .range(0,16);
+    .order("id", { ascending: true })
+    .range(0, 9);
 
   if (error) {
     console.error(error);
@@ -50,7 +49,7 @@ export async function createArtist(newArtist) {
     throw new Error("Artist could not be created");
   }
 
-  console.log(newArtist)
+  console.log(newArtist);
 
   const { data, error: storageError } = await supabase.storage
     .from("artist_image")
@@ -61,8 +60,10 @@ export async function createArtist(newArtist) {
 
   if (storageError) {
     await supabase.from("artists").delete().eq("id");
-    console.log(storageError)
-    throw new Error("Cabin image could not be uploaded and artist was not created")
+    console.log(storageError);
+    throw new Error(
+      "Cabin image could not be uploaded and artist was not created"
+    );
   }
 
   return data;

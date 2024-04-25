@@ -4,7 +4,8 @@ export async function getSongs() {
   let { data, error } = await supabase.from("songs").select(`
     *,
     artists (
-        name
+        name,
+        image_url
     )
 `);
 
@@ -162,5 +163,22 @@ export async function updateSong(newSong) {
     console.error(lyricsError);
     throw new Error("Lyrics could not be created");
   }
+  return data;
+}
+
+export async function getSongsForHome() {
+  let { data, error } = await supabase.from("songs").select(`
+    *,
+    artists (
+        name,
+        image_url
+    )
+`).range(0, 9);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Songs could not be loaded");
+  }
+
   return data;
 }
