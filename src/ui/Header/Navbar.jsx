@@ -53,11 +53,12 @@ const Navbar = () => {
     >
       <div className="md:flex items-center justify-between bg-primary py-3 md:px-10 px-7">
         {/* logo section */}
-        <div
-          className="font-bold text-md uppercase flex"
-          onClick={() => setOpenNav(false)}
-        >
-          <NavLink to="home" className="flex items-center">
+        <div className="font-bold text-md uppercase flex">
+          <NavLink
+            to="home"
+            className="flex items-center"
+            onClick={() => setOpenNav(false)}
+          >
             <img className="h-8 w-8" src="/catman.svg" alt="catman" />
             <p className="ml-3  font-bold text-white/90">Zoawi</p>
           </NavLink>
