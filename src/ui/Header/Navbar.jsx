@@ -55,7 +55,7 @@ const Navbar = () => {
         {/* logo section */}
         <div
           className="font-bold text-md uppercase flex"
-          onClick={() => setOpenNav(!openNav)}
+          onClick={() => setOpenNav(false)}
         >
           <NavLink to="home" className="flex items-center">
             <img className="h-8 w-8" src="/catman.svg" alt="catman" />
