@@ -1,22 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { MdMenu, MdClose, MdSearch } from "react-icons/md";
+import { MdMenu, MdClose } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import SearchButton from "./SearchButton";
 
 const Navbar = () => {
   let Links = [
     { name: "Songs", link: "/songs" },
     { name: "Artists", link: "/artists" },
     { name: "About", link: "/about" },
-    { name: "Search", link: "/search" },
+    { name: "Search", link: "/" },
   ];
   let [openNav, setOpenNav] = useState(false);
   // let [openSearch, setOpenSearch] = useState(false);
@@ -68,30 +61,8 @@ const Navbar = () => {
         </div>
 
         {/* SearchBar */}
-        <div className="absolute right-20 top-4 md:hidden text-white cursor-pointer hover:scale-110 ">
-          <Dialog>
-            <DialogTrigger>
-              <MdSearch size={24} />
-            </DialogTrigger>
-            <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
-              <DialogHeader>
-                <DialogTitle>Search</DialogTitle>
-                <DialogDescription>
-                  Search for songs, artists, albums
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex items-center justify-center">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-b-2 border-primary/60 outline-none flex-grow"
-                />
-                <button className="btn bg-primary text-white ml-2 p-1 px-2 rounded-full hover:scale-105 transition-transform ease-in-out duration-300">
-                  Search
-                </button>
-              </div>
-            </DialogContent>
-          </Dialog>
+        <div className="absolute right-20 md:right-32 top-4 md:hidden">
+          <SearchButton />
         </div>
 
         {/* Menu icon */}
@@ -109,17 +80,20 @@ const Navbar = () => {
           }`}
         >
           {Links.map((links) => (
-            <li className="md:ml-6 md:my-0 my-7 font-light " key={links.name}>
+            <li className="md:ml-6 font-light" key={links.name}>
               <NavLink
                 to={links.link}
-                className="text-secondary hover:text-secondary/70 hover:border-b-2 border-white duration-50 ease-in ml-2"
+                className="text-secondary hover:text-secondary/70 hover:border-b-2 border-white duration-400 transition-all ease-in-out ml-2"
                 onClick={() => setOpenNav(false)}
               >
                 {links.name}
               </NavLink>
             </li>
           ))}
-          <button className="btn bg-transparent text-secondary md:ml-8  border rounded-full font-semibold px-3 py-1 duration-500 md:static">
+          <div className="mt-1 ml-4 justify-end items-center hidden md:flex">
+            <SearchButton className="" />
+          </div>
+          <button className="btn bg-transparent text-secondary md:ml-4  border rounded-full font-semibold px-2 py-1 duration-500 md:static">
             Login
           </button>
         </ul>

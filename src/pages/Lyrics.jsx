@@ -6,7 +6,7 @@ function Lyrics() {
   const navigate = useNavigate();
 
   return (
-      <div className="max-w-[720px]">
+      <div className="max-w-[720px] flex flex-col align-center justify-center mx-auto">
         <div className="mb-4 flex text-sm justify-end">
           <button
             className="flex items-center gap-2 mr-4"

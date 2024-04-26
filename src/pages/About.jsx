@@ -2,7 +2,7 @@ import AboutCard from "../ui/AboutCard";
 
 export default function About() {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto p-8">
       <div className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
         <p className="mb-4 font-bold">About Us!</p>
         <AboutCard />

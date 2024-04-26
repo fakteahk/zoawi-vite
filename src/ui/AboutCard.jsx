@@ -14,7 +14,7 @@ function AboutCard() {
             Faktea Hk and Zorini C.
           </div>
           <div className="block mt-1 text-sm leading-tight font-medium text-primary">
-            Founding members of CatMan Lyrics
+            Founding members of Zoawi Lyrics
           </div>
         </div>
       </div>

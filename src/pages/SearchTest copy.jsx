@@ -18,6 +18,18 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
+function decodeHtml(html) {
+  var doc = new DOMParser().parseFromString(html, "text/html");
+  return doc.documentElement.textContent;
+}
+
+function findMatchingLine(lyrics, searchText) {
+  const decodedLyrics = decodeHtml(lyrics.replace(/<br>/g, "\n"));
+  const lines = decodedLyrics.split("\n");
+  const index = lines.findIndex((line) => line.toLowerCase().includes(searchText.toLowerCase()));
+  return index !== -1 ? [lines[index], lines[index + 1]] : [null, null];
+}
+
 export default function SearchTest() {
   const [activeSearch, setActiveSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -27,23 +39,37 @@ export default function SearchTest() {
     if (debouncedSearchTerm) {
       handleSearch(debouncedSearchTerm);
     } else {
-      setActiveSearch([])
+      setActiveSearch([]);
     }
   }, [debouncedSearchTerm]);
 
-  const handleSearch = async (value) => {
-    const { data, error } = await supabase
-      .from("artists")
-      .select()
-      .ilike("name", `%${value}%`)
-      .limit(10);
+  useEffect(() => {
+  handleSearch(searchText);
+}, [searchText]);
 
-    if (error) {
-      console.error(error);
+  const handleSearch = async (value) => {
+    const { data: songData, error: songError } = await supabase
+      .from("songs")
+      .select("title, lyrics, artist_id(name)")
+      .filter("tsv", "fts", value)
+      .limit(5)
+
+    if (songError) {
+      console.error(songError);
       return;
     }
 
-    setActiveSearch(data);
+    const { data: artistData, error: artistError } = await supabase
+      .from("artists")
+      .select("name")
+      .filter("tsv", "fts", value);
+
+    if (artistError) {
+      console.error(artistError);
+      return;
+    }
+
+    setActiveSearch([...songData, ...artistData]);
   };
 
   return (
@@ -52,7 +78,7 @@ export default function SearchTest() {
         <input
           type="search"
           placeholder="Type Here"
-          className="w-full p-4 rounded-xl"
+          className="w-full p-4 rounded-xl border"
           onChange={(e) => setSearchText(e.target.value)}
           value={searchText}
         />
@@ -75,9 +101,43 @@ export default function SearchTest() {
 
       {activeSearch.length > 0 && (
         <div className="cursor-pointer absolute p-4 top-16 z-20 bg-primary text-white w-full rounded-xl flex flex-col gap-2">
-          {activeSearch.map((artist) => (
-            <span key={artist.id}>{artist.name}</span>
-          ))}
+           {/* Artists */}
+           {activeSearch.some(item => item.name) && (
+            <div className="flex gap-2 items-center justify-between">
+              
+              {activeSearch.filter(item => item.name).map((artist, index) => {
+                if (artist.name.toLowerCase().includes(searchText.toLowerCase())) {
+                  return (
+                    <div key={index}>
+                      <h3>{artist.name}</h3>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+              <h2 className="bg-secondary text-primary rounded-full px-2">Artist</h2>
+            </div>
+          )}  
+          {/* Songs */}
+          {activeSearch.some(item => item.title) && (
+            <div className="flex flex-col gap-2">
+              {activeSearch.filter(item => item.title).map((song) => {
+                const [line, nextLine] = findMatchingLine(song.lyrics, searchText);
+                if (song.title.toLowerCase().includes(searchText.toLowerCase()) || line || nextLine) {
+                  return (
+                    <div key={song.id} className=" border-b border-neutral-500">
+                      <p className="col-span-4 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                        {line && <span>{line}</span>}
+                        {nextLine && <span>{nextLine}</span>}
+                      </p>
+                      <h3 className="col-span-2 overflow-hidden overflow-ellipsis whitespace-nowrap">{song.title} - {song.artist_id.name}</h3>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          )}
         </div>
       )}
     </form>
