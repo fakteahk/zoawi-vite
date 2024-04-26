@@ -140,7 +140,7 @@ function SearchButton() {
               </div>
             ) : (
               activeSearch.length > 0 && (
-                <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
+                <div className="cursor-pointer absolute p-4 top-32 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                   {/* Artists */}
                   {activeSearch.some((item) => item.name) && (
                     <div className="flex gap-3 items-center justify-between">
