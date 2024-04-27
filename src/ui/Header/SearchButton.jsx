@@ -6,8 +6,12 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import supabase from "@/services/supabase";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
+import {
+  searchLyrics,
+  searchArtists,
+  searchSongTitles,
+} from "@/services/apiSearch";
 
 function decodeHtml(html) {
   var doc = new DOMParser().parseFromString(html, "text/html");
@@ -25,8 +29,9 @@ function findMatchingLine(lyrics, searchText) {
 
 function SearchButton() {
   const [activeSearch, setActiveSearch] = useState([]);
+  const [titleSearch, setTitleSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const debouncedSearchTerm = useDebounce(searchText, 250);
+  const debouncedSearchTerm = useDebounce(searchText, 450);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -42,30 +47,24 @@ function SearchButton() {
   }, [searchText]);
 
   const handleSearch = async (value) => {
+    if (!value) {
+      setActiveSearch([]);
+      setTitleSearch([]);
+      return;
+    }
     setIsLoading(true);
     try {
-      const { data: songData, error: songError } = await supabase
-        .from("songs")
-        .select("title, lyrics, artist_id(name)")
-        .filter("tsv", "fts", value)
-        .limit(5);
+      const lyricsData = await searchLyrics(value);
+      const artistData = await searchArtists(value);
+      const titleData = await searchSongTitles(value);
 
-      if (songError) {
-        console.error(songError);
+      setActiveSearch([...lyricsData, ...artistData]);
+      setTitleSearch(titleData);
+
+      if (!lyricsData || !artistData) {
+        console.error("Error fetching data");
         return;
       }
-
-      const { data: artistData, error: artistError } = await supabase
-        .from("artists")
-        .select("name")
-        .filter("tsv", "fts", value);
-
-      if (artistError) {
-        console.error(artistError);
-        return;
-      }
-
-      setActiveSearch([...songData, ...artistData]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -97,9 +96,7 @@ function SearchButton() {
         <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
           <DialogHeader>
             {/* <DialogTitle>Search</DialogTitle> */}
-            <DialogDescription>
-              Search for songs or artists
-            </DialogDescription>
+            <DialogDescription>Search for songs or artists</DialogDescription>
           </DialogHeader>
           <div className="flex items-center justify-center">
             <input
@@ -143,63 +140,105 @@ function SearchButton() {
                 <div className="cursor-pointer absolute p-4 top-32 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                   {/* Artists */}
                   {activeSearch.some((item) => item.name) && (
-                    <div className="flex gap-3 items-center justify-between">
-                      {activeSearch
-                        .filter((item) => item.name)
-                        .map((artist, index) => {
-                          if (
-                            artist.name
-                              .toLowerCase()
-                              .includes(searchText.toLowerCase())
-                          ) {
-                            return (
-                              <div key={index}>
-                                <h3>{artist.name}</h3>
-                              </div>
-                            );
-                          }
-                          return null;
-                        })}
-                      <h2 className="bg-primary text-secondary rounded-full px-2">
-                        Artist
-                      </h2>
-                    </div>
+                    <>
+                      <div className="flex gap-6 flex-col justify-between bg-neutral-200 p-3 rounded-xl">
+                        {activeSearch
+                          .filter((item) => item.name)
+                          .map((artist, index) => {
+                            if (
+                              artist.name
+                                .toLowerCase()
+                                .includes(searchText.toLowerCase())
+                            ) {
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex justify-between"
+                                >
+                                  <h3>{artist.name}</h3>
+                                  <h2 className="bg-primary text-secondary rounded-full px-2">
+                                    Artist
+                                  </h2>
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                    </>
                   )}
+
+                  {titleSearch.some((item) => item.title) && (
+                    <>
+                      <div className="ml-2">{`Found ${
+                        titleSearch.filter((item) => item.title).length
+                      } matching Song Title`}</div>
+                      <div className="flex flex-col gap-6 p-3 bg-neutral-200 rounded-xl justify-center">
+                        {titleSearch
+                          .filter((item) => item.title)
+                          .map((song, index) => {
+                            if (
+                              song.title
+                                .toLowerCase()
+                                .includes(searchText.toLowerCase())
+                            ) {
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex justify-between"
+                                >
+                                  <h3>
+                                    {song.title} - {song.artist_id.name}
+                                  </h3>
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                    </>
+                  )}
+
                   {/* Songs */}
                   {activeSearch.some((item) => item.title) && (
-                    <div className="flex flex-col gap-3">
-                      {activeSearch
-                        .filter((item) => item.title)
-                        .map((song) => {
-                          const [line, nextLine] = findMatchingLine(
-                            song.lyrics,
-                            searchText
-                          );
-                          if (
-                            song.title
-                              .toLowerCase()
-                              .includes(searchText.toLowerCase()) ||
-                            line ||
-                            nextLine
-                          ) {
-                            return (
-                              <div
-                                key={song.id}
-                                className="border-b border-neutral-500"
-                              >
-                                <p className="col-span-4 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                                  {line && <span>{line}</span>}
-                                  {nextLine && <span>{nextLine}</span>}
-                                </p>
-                                <h3 className="col-span-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-light text-sm mb-2">
-                                  {song.title} - {song.artist_id.name}
-                                </h3>
-                              </div>
+                    <>
+                      <div className="ml-2">{`Found ${
+                        activeSearch.filter((item) => item.title).length
+                      } matching Lyrics`}</div>
+                      <div className="flex flex-col gap-3 p-3 bg-neutral-200 rounded-xl justify-center">
+                        {activeSearch
+                          .filter((item) => item.title)
+                          .map((song) => {
+                            const [line, nextLine] = findMatchingLine(
+                              song.lyrics,
+                              searchText
                             );
-                          }
-                          return null;
-                        })}
-                    </div>
+                            if (
+                              song.title
+                                .toLowerCase()
+                                .includes(searchText.toLowerCase()) ||
+                              line ||
+                              nextLine
+                            ) {
+                              return (
+                                <div
+                                  key={song.id}
+                                  className="grid grid-col items-center"
+                                >
+                                  <p className="col-span-4 font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
+                                    {line && <span>{line}</span>}
+                                    {nextLine && <span> {nextLine}</span>}
+                                  </p>
+                                  <h3 className=" col-span-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-light text-sm mb-2">
+                                    {song.title} - {song.artist_id.name}
+                                  </h3>
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                    </>
                   )}
                 </div>
               )
