@@ -172,7 +172,14 @@ function SearchButton() {
                     <>
                       <div className="ml-2">
                         <>
-                          Found <span className="font-bold">{titleSearch.filter((item) => item.title).length}</span> matching Song Title{titleSearch.filter((item) => item.title).length > 1 ? 's' : ''}
+                          Found{" "}
+                          <span className="font-bold">
+                            {titleSearch.filter((item) => item.title).length}
+                          </span>{" "}
+                          matching Song Title
+                          {titleSearch.filter((item) => item.title).length > 1
+                            ? "s"
+                            : ""}
                         </>
                       </div>
                       <div className="flex flex-col gap-2 p-1 bg-neutral-200 rounded-xl justify-center">
@@ -189,8 +196,12 @@ function SearchButton() {
                                   key={index}
                                   className="flex hover:bg-neutral-300 flex-col sm:flex-row sm:items-center gap-1 rounded-lg px-3 py-2"
                                 >
-                                  <span className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">{song.title}</span>
-                                  <span className="text-sm">- {song.artist_id.name}</span>
+                                  <span className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
+                                    {song.title}
+                                  </span>
+                                  <span className="text-sm">
+                                    - {song.artist_id.name}
+                                  </span>
                                 </div>
                               );
                             }
@@ -204,7 +215,11 @@ function SearchButton() {
                   {activeSearch.some((item) => item.title) && (
                     <>
                       <div className="ml-2">
-                        Found <span className="font-bold">{activeSearch.filter((item) => item.title).length}</span> matching Lyrics
+                        Found{" "}
+                        <span className="font-bold">
+                          {activeSearch.filter((item) => item.title).length}
+                        </span>{" "}
+                        matching Lyrics
                       </div>
                       <div className="flex flex-col gap-3 p-1 bg-neutral-200 rounded-xl justify-center">
                         {activeSearch
@@ -224,7 +239,7 @@ function SearchButton() {
                               return (
                                 <div
                                   key={song.id}
-                                  className="grid grid-cols-1 items-center hover:bg-neutral-300 rounded-lg py-2 px-3"
+                                  className="grid grid-cols-1 items-center hover:bg-neutral-300 rounded-lg pt-2 px-3"
                                 >
                                   <p className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     {line && <span>{line}</span>}
