@@ -5,7 +5,7 @@ export async function searchLyrics(value) {
     .from("songs")
     .select("title, lyrics, artist_id(name)")
     .filter("tsv", "fts", value)
-    .limit(5);
+    .limit(3);
 
   if (error) {
     console.error(error);

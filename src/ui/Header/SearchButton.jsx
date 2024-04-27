@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
@@ -93,10 +94,10 @@ function SearchButton() {
         <DialogTrigger>
           <AiOutlineSearch size={24} />
         </DialogTrigger>
-        <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%] overflow-auto">
+        <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
           <DialogHeader>
-            {/* <DialogTitle>Search</DialogTitle> */}
-            <DialogDescription>Search for songs or artists</DialogDescription>
+            <DialogTitle>Search</DialogTitle>
+            <DialogDescription>Search for artists, songs or lyrics</DialogDescription>
           </DialogHeader>
           <div className="flex items-center justify-center">
             <input
@@ -128,20 +129,20 @@ function SearchButton() {
             )}
 
             {isLoading ? (
-              <div className="cursor-pointer absolute p-4 top-32 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
+              <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                 Loading...
               </div>
             ) : searchText && activeSearch.length === 0 ? (
-              <div className="cursor-pointer absolute p-4 top-32 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
-                No songs found
+              <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
+                No results found
               </div>
             ) : (
               activeSearch.length > 0 && (
-                <div className="cursor-pointer absolute p-4 top-32 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
+                <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2 ">
                   {/* Artists */}
                   {activeSearch.some((item) => item.name) && (
                     <>
-                      <div className="flex gap-6 flex-col justify-between bg-neutral-200 p-3 rounded-xl">
+                      <div className="flex gap-1 flex-col justify-between bg-neutral-200 p-1 rounded-xl">
                         {activeSearch
                           .filter((item) => item.name)
                           .map((artist, index) => {
@@ -153,7 +154,7 @@ function SearchButton() {
                               return (
                                 <div
                                   key={index}
-                                  className="flex justify-between"
+                                  className="flex justify-between hover:bg-neutral-300 rounded-lg px-3 py-2"
                                 >
                                   <h3>{artist.name}</h3>
                                   <h2 className="bg-primary text-secondary rounded-full px-2">
@@ -194,12 +195,12 @@ function SearchButton() {
                               return (
                                 <div
                                   key={index}
-                                  className="flex hover:bg-neutral-300 flex-col sm:flex-row sm:items-center gap-1 rounded-lg px-3 py-2"
+                                  className="flex hover:bg-neutral-300 items-center gap-1 rounded-lg px-3 py-2"
                                 >
                                   <span className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     {song.title}
                                   </span>
-                                  <span className="text-sm">
+                                  <span className="overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     - {song.artist_id.name}
                                   </span>
                                 </div>
@@ -221,7 +222,7 @@ function SearchButton() {
                         </span>{" "}
                         matching Lyrics
                       </div>
-                      <div className="flex flex-col gap-3 p-1 bg-neutral-200 rounded-xl justify-center">
+                      <div className="flex flex-col gap-2 p-1 bg-neutral-200 rounded-xl justify-center">
                         {activeSearch
                           .filter((item) => item.title)
                           .map((song) => {
