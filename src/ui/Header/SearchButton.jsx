@@ -43,10 +43,6 @@ function SearchButton() {
     }
   }, [debouncedSearchTerm]);
 
-  useEffect(() => {
-    handleSearch(searchText);
-  }, [searchText]);
-
   const handleSearch = async (value) => {
     if (!value) {
       setActiveSearch([]);
