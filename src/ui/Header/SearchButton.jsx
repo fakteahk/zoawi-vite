@@ -32,7 +32,7 @@ function SearchButton() {
   const [activeSearch, setActiveSearch] = useState([]);
   const [titleSearch, setTitleSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const debouncedSearchTerm = useDebounce(searchText, 450);
+  const debouncedSearchTerm = useDebounce(searchText, 1000);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -97,7 +97,9 @@ function SearchButton() {
         <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
           <DialogHeader>
             <DialogTitle>Search</DialogTitle>
-            <DialogDescription>Search for artists, songs or lyrics</DialogDescription>
+            <DialogDescription>
+              Search for artists, songs or lyrics
+            </DialogDescription>
           </DialogHeader>
           <div className="flex items-center justify-center">
             <input
@@ -230,11 +232,18 @@ function SearchButton() {
                               song.lyrics,
                               searchText
                             );
+
+                            console.log("song.title:", song.title);
+                            console.log("searchText:", searchText);
+                            console.log("line:", line);
+                            console.log("nextLine:", nextLine);
+
+
                             if (
                               song.title
                                 .toLowerCase()
                                 .includes(searchText.toLowerCase()) ||
-                              line ||
+                              line &&
                               nextLine
                             ) {
                               return (
@@ -247,7 +256,7 @@ function SearchButton() {
                                     {nextLine && <span> {nextLine}</span>}
                                   </p>
                                   <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-light text-sm mb-2">
-                                    {song.title} - {song.artist_id.name}
+                                    {song?.title} - {song?.artist_id?.name}
                                   </h3>
                                 </div>
                               );

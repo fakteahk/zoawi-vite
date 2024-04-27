@@ -2,9 +2,7 @@ import supabase from "./supabase";
 
 export async function searchLyrics(value) {
   const { data, error } = await supabase
-    .from("songs")
-    .select("title, lyrics, artist_id(name)")
-    .filter("tsv", "fts", value)
+    .rpc('search_lyrics', { search_value: value })
     .limit(3);
 
   if (error) {
@@ -12,6 +10,7 @@ export async function searchLyrics(value) {
     return null;
   }
 
+  console.log(data)
   return data;
 }
 
