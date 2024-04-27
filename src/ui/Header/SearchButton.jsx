@@ -170,10 +170,12 @@ function SearchButton() {
 
                   {titleSearch.some((item) => item.title) && (
                     <>
-                      <div className="ml-2">{`Found ${
-                        titleSearch.filter((item) => item.title).length
-                      } matching Song Title`}</div>
-                      <div className="flex flex-col gap-6 p-3 bg-neutral-200 rounded-xl justify-center">
+                      <div className="ml-2">
+                        <>
+                          Found <span className="font-bold">{titleSearch.filter((item) => item.title).length}</span> matching Song Title{titleSearch.filter((item) => item.title).length > 1 ? 's' : ''}
+                        </>
+                      </div>
+                      <div className="flex flex-col gap-2 p-1 bg-neutral-200 rounded-xl justify-center">
                         {titleSearch
                           .filter((item) => item.title)
                           .map((song, index) => {
@@ -185,11 +187,10 @@ function SearchButton() {
                               return (
                                 <div
                                   key={index}
-                                  className="flex justify-between"
+                                  className="flex hover:bg-neutral-300 flex-col sm:flex-row sm:items-center gap-1 rounded-lg px-3 py-2"
                                 >
-                                  <h3>
-                                    {song.title} - {song.artist_id.name}
-                                  </h3>
+                                  <span className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">{song.title}</span>
+                                  <span className="text-sm">- {song.artist_id.name}</span>
                                 </div>
                               );
                             }
@@ -202,10 +203,10 @@ function SearchButton() {
                   {/* Songs */}
                   {activeSearch.some((item) => item.title) && (
                     <>
-                      <div className="ml-2">{`Found ${
-                        activeSearch.filter((item) => item.title).length
-                      } matching Lyrics`}</div>
-                      <div className="flex flex-col gap-3 p-3 bg-neutral-200 rounded-xl justify-center">
+                      <div className="ml-2">
+                        Found <span className="font-bold">{activeSearch.filter((item) => item.title).length}</span> matching Lyrics
+                      </div>
+                      <div className="flex flex-col gap-3 p-1 bg-neutral-200 rounded-xl justify-center">
                         {activeSearch
                           .filter((item) => item.title)
                           .map((song) => {
@@ -223,13 +224,13 @@ function SearchButton() {
                               return (
                                 <div
                                   key={song.id}
-                                  className="grid grid-col items-center"
+                                  className="grid grid-cols-1 items-center hover:bg-neutral-300 rounded-lg py-2 px-3"
                                 >
-                                  <p className="col-span-4 font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
+                                  <p className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     {line && <span>{line}</span>}
                                     {nextLine && <span> {nextLine}</span>}
                                   </p>
-                                  <h3 className=" col-span-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-light text-sm mb-2">
+                                  <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-light text-sm mb-2">
                                     {song.title} - {song.artist_id.name}
                                   </h3>
                                 </div>
