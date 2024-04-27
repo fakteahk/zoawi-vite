@@ -93,7 +93,7 @@ function SearchButton() {
         <DialogTrigger>
           <AiOutlineSearch size={24} />
         </DialogTrigger>
-        <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
+        <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%] overflow-auto">
           <DialogHeader>
             {/* <DialogTitle>Search</DialogTitle> */}
             <DialogDescription>Search for songs or artists</DialogDescription>
