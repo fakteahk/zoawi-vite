@@ -51,7 +51,7 @@ const Navbar = () => {
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="md:flex items-center justify-between bg-primary py-3 md:px-10 px-7">
+      <div className="md:flex items-center justify-between bg-primary md:py-0 py-3 md:px-10 px-7">
         {/* logo section */}
         <div className="font-bold text-md uppercase flex">
           <NavLink
@@ -84,7 +84,7 @@ const Navbar = () => {
           }`}
         >
           {Links.map((links) => (
-            <li className="md:ml-6 my-7 font-light" key={links.name}>
+            <li className="md:ml-6 my-7 md:my-4 font-light" key={links.name}>
               <NavLink
                 to={links.link}
                 className="text-secondary hover:text-secondary/70 hover:border-b-2 border-white duration-400 transition-all ease-in-out ml-2"
