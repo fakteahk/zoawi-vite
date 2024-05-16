@@ -1,11 +1,14 @@
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function getArtists() {
+export async function getArtists(page, itemsPerPage = 10) {
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage - 1;
+
   const { data, error } = await supabase
     .from("artists")
-    .select("*, songs(*)")
-    .order("id", { ascending: true });
-  // .range(0,16);
+    .select("*")
+    .order("id", { ascending: true })
+    .range(startIndex, endIndex);
 
   if (error) {
     console.error(error);
@@ -14,6 +17,21 @@ export async function getArtists() {
 
   return data;
 }
+
+export async function getArtistsCount() {
+  const { error, count } = await supabase
+    .from("artists")
+    .select("*", { count: "exact" });
+
+  if (error) {
+    console.error(error);
+    throw new Error("Artists count could not be loaded");
+  }
+
+  return count;
+}
+
+
 export async function getArtistsForHomepage() {
   const { data, error } = await supabase
     .from("artists")

@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { getArtistsForHomepage } from "@/services/apiArtists";
+import { getArtistsForHomepage } from "@/db/apiArtists";
 
 import catman from "/catman.svg";
 import { useQuery } from "@tanstack/react-query";

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
-import supabase from "../services/supabase";
+import supabase from "../db/supabase";
 
 function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -18,22 +18,10 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-function decodeHtml(html) {
-  var doc = new DOMParser().parseFromString(html, "text/html");
-  return doc.documentElement.textContent;
-}
-
-function findMatchingLine(lyrics, searchText) {
-  const decodedLyrics = decodeHtml(lyrics.replace(/<br>/g, "\n"));
-  const lines = decodedLyrics.split("\n");
-  const index = lines.findIndex((line) => line.toLowerCase().includes(searchText.toLowerCase()));
-  return index !== -1 ? [lines[index], lines[index + 1]] : [null, null];
-}
-
 export default function SearchTest() {
   const [activeSearch, setActiveSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const debouncedSearchTerm = useDebounce(searchText, 250);
+  const debouncedSearchTerm = useDebounce(searchText, 450);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -43,33 +31,23 @@ export default function SearchTest() {
     }
   }, [debouncedSearchTerm]);
 
-  useEffect(() => {
-  handleSearch(searchText);
-}, [searchText]);
-
   const handleSearch = async (value) => {
-    const { data: songData, error: songError } = await supabase
-      .from("songs")
-      .select("title, lyrics, artist_id(name)")
-      .filter("tsv", "fts", value)
-      .limit(5)
+    console.log("Search term:", value);
 
-    if (songError) {
-      console.error(songError);
-      return;
+    const { data, error } = await supabase
+      .rpc("search_lyrics_v3", { search_value: value })
+      .limit(2);
+
+    console.log("Data:", data);
+    console.log("Error:", error);
+
+    if (error) {
+      console.log(error);
+      return null;
     }
 
-    const { data: artistData, error: artistError } = await supabase
-      .from("artists")
-      .select("name")
-      .filter("tsv", "fts", value);
-
-    if (artistError) {
-      console.error(artistError);
-      return;
-    }
-
-    setActiveSearch([...songData, ...artistData]);
+    console.log(data);
+    setActiveSearch(data);
   };
 
   return (
@@ -101,41 +79,20 @@ export default function SearchTest() {
 
       {activeSearch.length > 0 && (
         <div className="cursor-pointer absolute p-4 top-16 z-20 bg-primary text-white w-full rounded-xl flex flex-col gap-2">
-           {/* Artists */}
-           {activeSearch.some(item => item.name) && (
-            <div className="flex gap-2 items-center justify-between">
-              
-              {activeSearch.filter(item => item.name).map((artist, index) => {
-                if (artist.name.toLowerCase().includes(searchText.toLowerCase())) {
-                  return (
-                    <div key={index}>
-                      <h3>{artist.name}</h3>
-                    </div>
-                  );
-                }
-                return null;
-              })}
-              <h2 className="bg-secondary text-primary rounded-full px-2">Artist</h2>
-            </div>
-          )}  
           {/* Songs */}
-          {activeSearch.some(item => item.title) && (
+          {activeSearch.some((item) => item.lyrics) && (
             <div className="flex flex-col gap-2">
-              {activeSearch.filter(item => item.title).map((song) => {
-                const [line, nextLine] = findMatchingLine(song.lyrics, searchText);
-                if (song.title.toLowerCase().includes(searchText.toLowerCase()) || line || nextLine) {
+              {activeSearch
+                .filter((item) => item.lyrics)
+                .map((song) => {
                   return (
-                    <div key={song.id} className=" border-b border-neutral-500">
-                      <p className="col-span-4 overflow-hidden overflow-ellipsis whitespace-nowrap">
-                        {line && <span>{line}</span>}
-                        {nextLine && <span>{nextLine}</span>}
-                      </p>
-                      <h3 className="col-span-2 overflow-hidden overflow-ellipsis whitespace-nowrap">{song.title} - {song.artist_id.name}</h3>
+                    <div key={song.id} className="border-b border-neutral-500">
+                      <h3 className="col-span-2 overflow-hidden overflow-ellipsis whitespace-nowrap">
+                        {song.lyrics}
+                      </h3>
                     </div>
                   );
-                }
-                return null;
-              })}
+                })}
             </div>
           )}
         </div>

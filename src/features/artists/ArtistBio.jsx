@@ -1,24 +1,23 @@
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getSongOfArtist } from "../../services/apiSongs";
+import { getSongOfArtist } from "../../db/apiSongs";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
 function ArtistBio() {
   const navigate = useNavigate();
   const location = useLocation();
   const imageUrl = location.state?.imageUrl;
-  const artistName = location.state?.artistName;
-  const example = location.state?.example;
+  // const artistName = location.state?.artistName;
 
-  const { id: artistId } = useParams();
+  const { artistName } = useParams();
   const { isLoading, data: songs } = useQuery({
-    queryKey: ["songs", artistId],
-    queryFn: () => getSongOfArtist(artistId),
+    queryKey: ["songs", artistName],
+    queryFn: () => getSongOfArtist(artistName),
   });
 
   if (isLoading) return <p>Loading</p>;
 
-  if (songs.length === 0) {
+  if (!songs || songs.length === 0) {
     return (
       <div className="flex flex-col min-w-96">
         <div className="mb-4 flex text-sm justify-end">
@@ -40,7 +39,7 @@ function ArtistBio() {
         {imageUrl && (
           <img
             src={imageUrl}
-            alt={songs[0].artists.name}
+            alt={songs[0].name}
             className=" w-screen h-72 object-cover transform -translate-y-10 "
           />
         )}
@@ -62,10 +61,10 @@ function ArtistBio() {
         </div>
         {songs.map((song) => (
           <div
-            key={song.id}
+            key={song.song_id}
             className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md  text-lg sm:flex sm:space-x-1"
           >
-            <Link to={`/songs/${song.id}`}>
+            <Link to={`/artists/${song.artist_name}/${song.title}`}>
               <p className="">{song.title}</p>
             </Link>
           </div>

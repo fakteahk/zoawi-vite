@@ -6,10 +6,10 @@ import SearchButton from "./SearchButton";
 
 const Navbar = () => {
   let Links = [
-    { name: "Songs", link: "/songs" },
-    { name: "Artists", link: "/artists" },
+    { name: "Songs", link: "/songs/page/1" },
+    { name: "Artists", link: "/artists/page/1" },
     { name: "About", link: "/about" },
-    { name: "Search", link: "/" },
+    // { name: "Search", link: "/" },
   ];
   let [openNav, setOpenNav] = useState(false);
   // let [openSearch, setOpenSearch] = useState(false);

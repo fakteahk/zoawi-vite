@@ -1,34 +1,10 @@
 import supabase from "./supabase";
 
-export async function getSongs() {
-  let { data, error } = await supabase.from("songs").select(`
-    *,
-    artists (
-        name,
-        image_url
-    )
-`);
-
-  if (error) {
-    console.error(error);
-    throw new Error("Songs could not be loaded");
-  }
-
-  return data;
-}
-
-export async function getSong(songId) {
+export async function getSongs(startIndex, endIndex) {
   let { data, error } = await supabase
-    .from("songs")
-    .select(
-      `
-    *,
-    artists (
-        name
-    )
-    `
-    )
-    .eq("id", songId);
+    .from("artists_songs")
+    .select(`song_id, title, artist_name`)
+    .range(startIndex, endIndex);
 
   if (error) {
     console.error(error);
@@ -38,19 +14,38 @@ export async function getSong(songId) {
   return data;
 }
 
-export async function getSongOfArtist(artistId) {
-  let { data: songs, error } = await supabase
+export async function getSongsCount() {
+  const { error, count } = await supabase
     .from("songs")
-    .select(
-      `
-        *,
-        artists (
-            name,
-            image_url
-        )
-    `
-    )
-    .eq("artist_id", artistId);
+    .select("*", { count: "exact" });
+
+  if (error) {
+    console.error(error);
+    throw new Error("Songs count could not be loaded");
+  }
+
+  return count;
+}
+
+export async function getSong(title) {
+  let { data, error } = await supabase
+    .from("artists_songs")
+    .select("*")
+    .eq("title", title);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Songs could not be loaded");
+  }
+
+  return data;
+}
+
+export async function getSongOfArtist(artistName) {
+  let { data: songs, error } = await supabase
+    .from("artists_songs")
+    .select("artist_id, song_id, title")
+    .eq("artist_name", artistName);
 
   if (error) {
     console.error(error);
@@ -61,9 +56,10 @@ export async function getSongOfArtist(artistId) {
     return [];
   }
 
+  console.log(songs);
+
   return songs;
 }
-
 
 //Delete stuff
 
@@ -108,9 +104,9 @@ export async function createSong(newSong) {
 async function getSongById(id) {
   try {
     let { data: song, error: songError } = await supabase
-      .from("songs")
+      .from("artists_songs")
       .select("*")
-      .eq("id", id)
+      .eq("song_id", id)
       .single();
 
     if (songError) {
@@ -167,13 +163,12 @@ export async function updateSong(newSong) {
 }
 
 export async function getSongsForHome() {
-  let { data, error } = await supabase.from("songs").select(`
-    *,
-    artists (
-        name,
-        image_url
-    )
-`).range(0, 9);
+  let { data, error } = await supabase
+    .from("artists_songs")
+    .select("artist_name, title, image_url")
+    .range(0, 9);
+
+  console.log(data, error);
 
   if (error) {
     console.error(error);

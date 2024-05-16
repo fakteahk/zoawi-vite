@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getSongsForHome } from "../../services/apiSongs";
+import { getSongsForHome } from "../../db/apiSongs";
 
 export default function ListHomeSongs() {
   const { isLoading: isLoading, data: songs } = useQuery({
@@ -26,36 +26,38 @@ export default function ListHomeSongs() {
             </tr>
           </thead>
           <tbody>
-            {songs.map((song, index) => (
-              <tr className="border-b dark:border-gray-800" key={song.id}>
-                <td className="px-4 py-3 font-medium hidden md:table-cell align-middle text-center border-r">
-                  {index + 1}
-                </td>
-                <td className="px-4 py-3 text-left font-medium">
-                  {song.title}
-                </td>
-                <td className="px-4 py-3 flex items-center gap-3">
-                  <div className="flex-shrink-0">
-                    <img
-                      alt="artist"
-                      className="rounded"
-                      height={40}
-                      src={song.artists?.image_url || ""}
-                      style={{
-                        aspectRatio: "40/40",
-                        objectFit: "cover",
-                      }}
-                      width={40}
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-medium">
-                      {song.artists?.name || "Undefined"}
-                    </h3>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {songs.map((song, index) => {
+              return (
+                <tr className="border-b dark:border-gray-800" key={song.title}>
+                  <td className="px-4 py-3 font-medium hidden md:table-cell align-middle text-center border-r">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-3 text-left font-medium">
+                    {song.title}
+                  </td>
+                  <td className="px-4 py-3 flex items-center gap-3">
+                    <div className="flex-shrink-0">
+                      <img
+                        alt="artist"
+                        className="rounded"
+                        height={40}
+                        src={song.image_url || ""}
+                        style={{
+                          aspectRatio: "40/40",
+                          objectFit: "cover",
+                        }}
+                        width={40}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">
+                        {song.artist_name || "Undefined"}
+                      </h3>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

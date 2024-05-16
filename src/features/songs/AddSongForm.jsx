@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
-import { createSong } from "../../services/apiSongs";
-import { getArtists, createArtistFromSongs } from "../../services/apiArtists"; // Import your API function
+import { createSong } from "../../db/apiSongs";
+import { getArtists, createArtistFromSongs } from "../../db/apiArtists"; // Import your API function
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 

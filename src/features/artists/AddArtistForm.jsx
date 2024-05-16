@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LiaUserCircle, LiaArrowLeftSolid } from "react-icons/lia";
 import toast from "react-hot-toast";
 
-import { createArtist } from "../../services/apiArtists";
+import { createArtist } from "../../db/apiArtists";
 import { Button } from "@/components/ui/button";
 
 export default function AddArtistForm() {

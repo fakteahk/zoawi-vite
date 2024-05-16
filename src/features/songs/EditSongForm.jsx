@@ -7,9 +7,9 @@ import Creatable from "react-select/creatable";
 import toast from "react-hot-toast";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 
-import { createSong, getSongById } from "../../services/apiSongs";
-import { getSongs } from "../../services/apiSongs";
-import { getArtists, createArtistFromSongs } from "../../services/apiArtists"; // Import your API function
+import { createSong, getSongById } from "../../db/apiSongs";
+import { getSongs } from "../../db/apiSongs";
+import { getArtists, createArtistFromSongs } from "../../db/apiArtists"; // Import your API function
 
 export default function EditSongForm() {
   const navigate = useNavigate();

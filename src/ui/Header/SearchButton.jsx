@@ -8,11 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
-import {
-  searchLyrics,
-  searchArtists,
-  searchSongTitles,
-} from "@/services/apiSearch";
+import { searchLyrics, searchArtists, searchSongTitles } from "@/db/apiSearch";
 
 function decodeHtml(html) {
   var doc = new DOMParser().parseFromString(html, "text/html");
@@ -234,13 +230,11 @@ function SearchButton() {
                             console.log("line:", line);
                             console.log("nextLine:", nextLine);
 
-
                             if (
                               song.title
                                 .toLowerCase()
                                 .includes(searchText.toLowerCase()) ||
-                              line &&
-                              nextLine
+                              (line && nextLine)
                             ) {
                               return (
                                 <div

@@ -39,13 +39,13 @@ export default function App() {
               <Route index element={<Navigate replace to="home" />} />
               <Route path="home" element={<Home />}></Route>
 
-              <Route path="songs" element={<Songs />}></Route>
-              <Route path="songs/:id" element={<Lyrics />}></Route>
+              <Route path="songs/page/:pageNumber" element={<Songs />} />
+              <Route path="artists/:artistName/:title" element={<Lyrics />} />
               <Route path="addSong" element={<AddSongForm />}></Route>
               <Route path="editSong" element={<EditSongForm />}></Route>
 
-              <Route path="artists" element={<Artists />}></Route>
-              <Route path="artists/:id" element={<ArtistBio />}></Route>
+              <Route path="artists/page/:pageNumber" element={<Artists />} />
+              <Route path="artists/:artistName" element={<ArtistBio />} />
               <Route path="addArtist" element={<AddArtistForm />}></Route>
 
               <Route path="about" element={<About />}></Route>
