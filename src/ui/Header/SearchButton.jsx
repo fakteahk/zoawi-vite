@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
-import { searchLyrics, searchArtists, searchSongTitles } from "@/db/apiSearch";
+import { searchLyrics, searchArtists, searchSongTitles, searchAll } from "@/db/apiSearch";
 
 function decodeHtml(html) {
   var doc = new DOMParser().parseFromString(html, "text/html");
@@ -47,14 +47,16 @@ function SearchButton() {
     }
     setIsLoading(true);
     try {
+      const data = await searchAll(value);
+
       const lyricsData = await searchLyrics(value);
       const artistData = await searchArtists(value);
       const titleData = await searchSongTitles(value);
 
-      setActiveSearch([...lyricsData, ...artistData]);
+      setActiveSearch([...lyricsData, ...artistData, ...data.lyrics]);
       setTitleSearch(titleData);
 
-      if (!lyricsData || !artistData) {
+      if (!lyricsData || !artistData || !data.lyrics) {
         console.error("Error fetching data");
         return;
       }
@@ -163,6 +165,7 @@ function SearchButton() {
                     </>
                   )}
 
+                  {/* Song Titles */}
                   {titleSearch.some((item) => item.title) && (
                     <>
                       <div className="ml-2">
@@ -195,7 +198,7 @@ function SearchButton() {
                                     {song.title}
                                   </span>
                                   <span className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-                                    - {song.artist_id.name}
+                                    - {song.artist_name}
                                   </span>
                                 </div>
                               );
@@ -206,7 +209,7 @@ function SearchButton() {
                     </>
                   )}
 
-                  {/* Songs */}
+                  {/* Lyrics */}
                   {activeSearch.some((item) => item.title) && (
                     <>
                       <div className="ml-2">
@@ -234,7 +237,7 @@ function SearchButton() {
                               song.title
                                 .toLowerCase()
                                 .includes(searchText.toLowerCase()) ||
-                              (line && nextLine)
+                              (line)
                             ) {
                               return (
                                 <div
@@ -243,10 +246,10 @@ function SearchButton() {
                                 >
                                   <p className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     {line && <span>{line}</span>}
-                                    {nextLine && <span> {nextLine}</span>}
+                                    {/* {nextLine && <span> {nextLine}</span>} */}
                                   </p>
                                   <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-light text-sm mb-2">
-                                    {song?.title} - {song?.artist_id?.name}
+                                    {song?.title} - {song?.artist_name}
                                   </h3>
                                 </div>
                               );

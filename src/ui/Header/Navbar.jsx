@@ -7,7 +7,7 @@ import SearchButton from "./SearchButton";
 const Navbar = () => {
   let Links = [
     { name: "Songs", link: "/songs/page/1" },
-    { name: "Artists", link: "/artists/page/1" },
+    { name: "Artists", link: "/artists/" },
     { name: "About", link: "/about" },
     // { name: "Search", link: "/" },
   ];

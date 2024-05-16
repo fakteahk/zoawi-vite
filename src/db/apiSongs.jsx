@@ -44,7 +44,7 @@ export async function getSong(title) {
 export async function getSongOfArtist(artistName) {
   let { data: songs, error } = await supabase
     .from("artists_songs")
-    .select("artist_id, song_id, title")
+    .select("artist_id, song_id, title, image_url")
     .eq("artist_name", artistName);
 
   if (error) {

@@ -22,7 +22,7 @@ function Home() {
       </div> */}
 
 
-      <div className="flex flex-col gap-4 justify-center items-center mx-auto mb-12">
+      <div className="flex flex-col gap-4 justify-center items-center mx-auto mb-12 min-w-[24rem] md:min-w-[42rem] lg:min-w-[56rem]">
         <div className="pl-6 xl:pl-2 self-start text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-red-600">
           Trending Artists
         </div>

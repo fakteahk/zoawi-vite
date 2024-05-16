@@ -24,18 +24,18 @@ export function CarouselHomeArtists() {
     <Carousel
       opts={{
         align: "start",
-        loop: true,
+        // loop: true,
       }}
-      className="max-w-sm md:max-w-2xl mx-auto lg:max-w-4xl"
+      className="max-w-[21rem] md:max-w-[38rem] mx-auto lg:max-w-[52rem]"
     >
-      <CarouselContent className="-ml-0 md:-ml-[4.5rem] lg:-ml-32">
+      <CarouselContent className="-ml-14 md:-ml-48 lg:-ml-56">
         {artist.map((artist, index) => (
           <CarouselItem
             key={index}
-            className="basis-1/2 md:basis-1/3 lg:basis-1/4 ml-4 md:ml-6 md:pl-24 lg:pl-32"
+            className="pl-14 md:pl-48 lg:pl-56 basis-1/2 md:basis-1/3 lg:basis-1/4"
           >
-            <div className="pl-2">
-              <Card className="h-48 w-48 md:w-64 md:h-64 rounded-xl ">
+            <div className="">
+              <Card className="h-48 w-48 md:w-64 md:h-64 rounded-xl">
                 <CardContent className="relative flex aspect-square items-start justify-start -p-1 w-full h-full">
                   <img
                     src={artist.image_url || catman}

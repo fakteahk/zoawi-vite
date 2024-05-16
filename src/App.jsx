@@ -44,7 +44,7 @@ export default function App() {
               <Route path="addSong" element={<AddSongForm />}></Route>
               <Route path="editSong" element={<EditSongForm />}></Route>
 
-              <Route path="artists/page/:pageNumber" element={<Artists />} />
+              <Route path="artists/" element={<Artists />} />
               <Route path="artists/:artistName" element={<ArtistBio />} />
               <Route path="addArtist" element={<AddArtistForm />}></Route>
 

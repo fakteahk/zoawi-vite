@@ -17,13 +17,13 @@ function LyricsContent() {
   return (
     <div className="pl-4 min-h-screen sm:w-[540px] w-[24rem] md:w-[720px]">
       <div className="mt-4 font-semibold">{song[0].title}</div>
-      <div
-        className="mt-1 pb-12 "
-        onClick={() => navigate(`/artists/${song[0].artist_name}`)}
-      >
-        <div className="cursor-pointer hover:text-muted-foreground">
-          {song[0].artist_name ? song[0].artist_name : "Unknown"}
-        </div>
+      <div className="mt-1 pb-12 ">
+          <span
+            className="cursor-pointer hover:text-muted-foreground inline-block"
+            onClick={() => navigate(`/artists/${song[0].artist_name}`)}
+          >
+            {song[0].artist_name ? song[0].artist_name : "Unknown"}
+          </span>
       </div>
       <div className="mt-4">
         {song[0].lyrics ? (

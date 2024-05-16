@@ -2,7 +2,7 @@ function ArtistCard({ children, imgSrc, ...props }) {
   return (
     <div
       {...props}
-      className="relative h-52 sm:h-60 overflow-hidden rounded-2xl shadow-lg group border-2 border-secondary border-dashed"
+      className=" cursor-pointer relative h-52 sm:h-60 overflow-hidden rounded-2xl shadow-lg group border-2 border-secondary border-dashed"
     >
       {imgSrc ? (
           <img

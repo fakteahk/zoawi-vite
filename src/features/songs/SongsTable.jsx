@@ -90,7 +90,7 @@ export default function SongsTable() {
                     className={`px-4 py-2 ${
                       page === pageNumber ? "bg-blue-500 text-white" : ""
                     }`}
-                    href="#"
+               
                     onClick={() => {
                       setPage(pageNumber);
                       navigate(`/songs/page/${pageNumber + 1}`);
@@ -110,7 +110,7 @@ export default function SongsTable() {
             </PaginationItem>
             <PaginationItem>
               <PaginationNext
-                href="#"
+
                 onClick={() => {
                   const newPage = Math.min(totalPages - 1, page + 1);
                   setPage(newPage);
