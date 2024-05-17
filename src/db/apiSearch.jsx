@@ -17,7 +17,7 @@ export async function searchLyrics(value) {
 export async function searchArtists(value) {
   const { data, error } = await supabase
     .from("artists")
-    .select("name")
+    .select("name, id")
     .ilike("name", `%${value}%`)
     .limit(2);
 
@@ -45,7 +45,7 @@ export async function searchSongTitles(value) {
   return data;
 }
 
-export async function searchAll(value) {
+export async function searchSongsAndLyrics(value) {
   const [songTitlesResponse, lyricsResponse] = await Promise.all([
     supabase
       .from("artists_songs")
