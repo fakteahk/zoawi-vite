@@ -20,6 +20,11 @@ function decodeHtml(html) {
 }
 
 function findMatchingLine(lyrics, searchText) {
+  if (!lyrics) {
+    console.log("Song or lyrics not available");
+    return [null];
+  }
+
   const decodedLyrics = decodeHtml(lyrics.replace(/<br>/g, "\n"));
   const lines = decodedLyrics.split("\n");
   const index = lines.findIndex((line) =>
@@ -38,6 +43,7 @@ function SearchButton() {
   const [searchText, setSearchText] = useState("");
   const debouncedSearchTerm = useDebounce(searchText, 250);
   const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClick = () => {
@@ -70,6 +76,7 @@ function SearchButton() {
     } catch (error) {
       console.error(error);
     } finally {
+      setHasSearched(true);
       setIsSearching(false);
     }
   };
@@ -165,7 +172,11 @@ function SearchButton() {
                   />
                 </div>
               </div>
-            ) : searchText === 0 ? (
+            ) : !isSearching &&
+              hasSearched &&
+              activeSearch.length === 0 &&
+              titleSearch.length === 0 &&
+              lyricsSearch.length === 0 ? (
               <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                 No results found
               </div>
@@ -244,7 +255,9 @@ function SearchButton() {
                             return (
                               <DialogClose asChild key={index}>
                                 <Link
-                                  to={`/artists/${song.artist_name}/${song.title}`}
+                                  to={`/artists/${encodeURIComponent(
+                                    song.artist_name
+                                  )}/${encodeURIComponent(song.title)}`}
                                   onClick={handleClick}
                                 >
                                   <div className="flex justify-between hover:bg-neutral-300 items-center gap-1 rounded-lg px-3 py-2">
@@ -276,9 +289,10 @@ function SearchButton() {
                             searchText
                           );
 
-                          console.log("song.title:", song.title);
-                          console.log("searchText:", searchText);
-                          console.log("line:", line);
+                          // console.log("song:", song)
+                          // console.log("song.title:", song.title);
+                          // console.log("searchText:", searchText);
+                          // console.log("line:", line);
 
                           if (
                             line &&
@@ -299,7 +313,7 @@ function SearchButton() {
                                         onClick={handleClick}
                                       >
                                         <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-                                          {line && <span>{line}</span>}...
+                                          {line && <span>{line}</span>} ...
                                         </p>
                                         <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold text-sm mt-2 mb-2">
                                           {song?.title} - {song?.artist_name}

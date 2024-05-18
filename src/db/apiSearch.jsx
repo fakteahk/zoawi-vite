@@ -53,8 +53,12 @@ export async function searchSongsAndLyrics(value) {
       .ilike("title", `%${value}%`)
       .limit(3),
     supabase
-      .rpc("search_lyrics", { search_value: value })
-      .limit(3)
+      // .rpc("search_lyrics", { search_value: value })
+      // .limit(3)
+      .from("artists_songs")
+      .select("title, lyrics, song_id, artist_name")
+      .ilike("lyrics", `%${value}%`)
+      .limit(3),
   ]);
 
   const errors = [songTitlesResponse.error, lyricsResponse.error].filter(Boolean);
