@@ -14,6 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // import toast from "react-hot-toast";
 
@@ -52,76 +53,92 @@ export default function SongsTable() {
   );
 
   const totalPages = Math.ceil(totalArtists / itemsPerPage);
-  console.log(totalArtists, totalPages);
+  // console.log(totalArtists, totalPages);
 
   const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading</p>;
-
   return (
-    <div className="grid sm:grid-rows-10 gap-2 p-2 min-w-96">
-      {songs.map((song) => (
-        <SongRow key={song.id} song={song} />
-      ))}
+    <>
+      <div className="grid sm:grid-rows-10 gap-2 p-2 min-w-96">
+        {isLoading ? (
+          <div className="grid sm:grid-rows-10 gap-5 p-2 min-w-96">
+            {Array.from({ length: 10 }, (_, i) => (
+              <Skeleton
+                key={i}
+                className="p-4 rounded-sm shadow-sm border-2 border-secondary border-dashed text-lg sm:space-x-1 mb-1"
+              >
+                <div>
+                  <Skeleton className="h-10 w-[250px]" />
+                </div>
+              </Skeleton>
+            ))}
+          </div>
+        ) : (
+          <>
+            {songs.map((song) => (
+              <SongRow key={song.id} song={song} />
+            ))}
+          </>
+        )}
 
-      <div className="mt-10">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={() => {
-                  const newPage = Math.max(0, page - 1);
-                  setPage(newPage);
-                  navigate(`/songs/page/${newPage + 1}`);
-                }}
-              />
-            </PaginationItem>
-            {Array.from({ length: 3 }, (_, i) => {
-              const pageNumber =
-                page < 2
-                  ? i
-                  : page < totalPages - 2
-                  ? page - 1 + i
-                  : totalPages - 3 + i;
-              return (
-                <PaginationItem key={i}>
-                  <PaginationLink
-                    className={`px-4 py-2 ${
-                      page === pageNumber ? "bg-blue-500 text-white" : ""
-                    }`}
-               
-                    onClick={() => {
-                      setPage(pageNumber);
-                      navigate(`/songs/page/${pageNumber + 1}`);
-                    }}
-                  >
-                    {pageNumber + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            })}
-            <PaginationItem>
-              {page < totalPages - 2 && (
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              )}
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext
-
-                onClick={() => {
-                  const newPage = Math.min(totalPages - 1, page + 1);
-                  setPage(newPage);
-                  navigate(`/songs/page/${newPage + 1}`);
-                }}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <div className="mt-10">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => {
+                    const newPage = Math.max(0, page - 1);
+                    setPage(newPage);
+                    navigate(`/songs/page/${newPage + 1}`);
+                  }}
+                  className="cursor-pointer"
+                />
+              </PaginationItem>
+              {Array.from({ length: 3 }, (_, i) => {
+                const pageNumber =
+                  page < 2
+                    ? i
+                    : page < totalPages - 2
+                    ? page - 1 + i
+                    : totalPages - 3 + i;
+                return (
+                  <PaginationItem key={i}>
+                    <PaginationLink
+                      className={`cursor-pointer px-4 py-2 ${
+                        page === pageNumber ? "bg-blue-500 hover:bg-blue-600 text-white" : ""
+                      }`}
+                      onClick={() => {
+                        setPage(pageNumber);
+                        navigate(`/songs/page/${pageNumber + 1}`);
+                      }}
+                    >
+                      {pageNumber + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              })}
+              <PaginationItem>
+                {page < totalPages - 2 && (
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                )}
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => {
+                    const newPage = Math.min(totalPages - 1, page + 1);
+                    setPage(newPage);
+                    navigate(`/songs/page/${newPage + 1}`);
+                  }}
+                  className="cursor-pointer"
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -147,10 +164,14 @@ function SongRow({ song }) {
   return (
     <div
       key={song.song_id}
-      className="bg-white hover:bg-card hover:ring-4 hover:ring/20 cursor-pointer p-4 rounded-sm shadow-sm border-2 border-secondary border-dashed  text-lg sm:space-x-1 mb-2"
+      className="bg-white hover:bg-card hover:ring-4 hover:ring/20 cursor-pointer p-3 rounded-sm shadow-sm border-2 border-secondary border-dashed  text-lg sm:space-x-1 mb-2"
     >
       <div>
-        <Link to={`/artists/${song.artist_name}/${song.title}`}>
+        <Link
+          to={`/artists/${encodeURIComponent(
+            song.artist_name
+          )}/${encodeURIComponent(song.title)}`}
+        >
           <p className="font-semibold">{song.title}</p>
           <p className="text-primary">{song.artist_name}</p>
         </Link>

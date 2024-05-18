@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getSongOfArtist } from "../../db/apiSongs";
 import { LiaArrowLeftSolid } from "react-icons/lia";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function ArtistBio() {
   const navigate = useNavigate();
@@ -15,7 +16,35 @@ function ArtistBio() {
     queryFn: () => getSongOfArtist(artistName),
   });
 
-  if (isLoading) return <p>Loading</p>;
+  if (isLoading)
+    return (
+      <div>
+        <div className="flex flex-col items-center justify-center text-xl mb-4">
+          <Skeleton className=" w-screen h-72 object-cover transform -translate-y-10 " />
+          <Skeleton className="h-6 w-[250px]"></Skeleton>
+        </div>
+        <div className="grid gap-2 p-2 min-w-96">
+          {/* Go back arrow */}
+          <div className="mb-4 flex text-sm justify-end">
+            <button
+              className="flex items-center gap-2 mr-4"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/artists");
+              }}
+            >
+              <LiaArrowLeftSolid />
+              Go back
+            </button>
+          </div>
+          <Skeleton className="h-14 w-[95%]"></Skeleton>
+          <Skeleton className="h-14 w-[95%]"></Skeleton>
+          <Skeleton className="h-14 w-[95%]"></Skeleton>
+          <Skeleton className="h-14 w-[95%]"></Skeleton>
+          <Skeleton className="h-14 w-[95%]"></Skeleton>
+        </div>
+      </div>
+    );
 
   if (!songs || songs.length === 0) {
     return (
@@ -61,16 +90,20 @@ function ArtistBio() {
           </button>
         </div>
         {songs.map((song) => (
-          <Link to={`/artists/${song.artist_name}/${song.title}`} key={song.song_id}>
-            <div
-              className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md  text-lg sm:flex sm:space-x-1"
-            >
+          <Link
+            to={`/artists/${encodeURIComponent(
+              song.artist_name
+            )}/${encodeURIComponent(song.title)}`}
+            key={song.song_id}
+          >
+            <div className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md  text-lg sm:flex sm:space-x-1">
               <p className="">{song.title}</p>
             </div>
           </Link>
         ))}
       </div>
     </div>
+    
   );
 }
 

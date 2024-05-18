@@ -12,6 +12,8 @@ import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { searchArtists, searchSongsAndLyrics } from "@/db/apiSearch";
 import { Link } from "react-router-dom";
 
+import { ColorRing } from "react-loader-spinner";
+
 function decodeHtml(html) {
   var doc = new DOMParser().parseFromString(html, "text/html");
   return doc.documentElement.textContent;
@@ -35,7 +37,7 @@ function SearchButton() {
   const [lyricsSearch, setLyricsSearch] = useState([]);
   const [searchText, setSearchText] = useState("");
   const debouncedSearchTerm = useDebounce(searchText, 250);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClick = () => {
@@ -49,7 +51,7 @@ function SearchButton() {
       setLyricsSearch([]);
       return;
     }
-    setIsLoading(true);
+    setIsSearching(true);
 
     try {
       const data = await searchSongsAndLyrics(value);
@@ -68,10 +70,15 @@ function SearchButton() {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsSearching(false);
     }
   };
 
+  useEffect(() => {
+    setIsSearching(searchText !== "");
+  }, [searchText]);
+
+  //?DEBOUNCE STUFF
   useEffect(() => {
     if (debouncedSearchTerm) {
       handleSearch(debouncedSearchTerm);
@@ -138,15 +145,32 @@ function SearchButton() {
               />
             )}
 
-            {isLoading ? (
-              <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
-                Loading...
+            {isSearching ? (
+              <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex items-center justify-center gap-2">
+                <div className="p-1">
+                  <ColorRing
+                    visible={true}
+                    height="40"
+                    width="40"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                      "#e15b64",
+                      "#f47e60",
+                      "#f8b26a",
+                      "#abbd81",
+                      "#849b87",
+                    ]}
+                  />
+                </div>
               </div>
             ) : searchText === 0 ? (
               <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                 No results found
               </div>
             ) : (
+              !isSearching &&
               activeSearch.length > 0 && (
                 <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2 ">
                   {/* Artists */}
@@ -156,30 +180,29 @@ function SearchButton() {
                         {activeSearch
                           .filter((item) => item.name)
                           .map((artist, index) => {
-                            console.log("artist:", artist);
                             if (
                               artist.name
                                 .toLowerCase()
                                 .includes(searchText.toLowerCase())
                             ) {
                               return (
-                                <div
-                                  key={index}
-                                  className="flex justify-between hover:bg-neutral-300 rounded-lg px-3 py-2"
-                                >
-                                  <DialogClose asChild>
-                                    <Link
-                                      to={`/artists/${artist.name}`}
-                                      onClick={handleClick}
+                                <DialogClose asChild key={index}>
+                                  <Link
+                                    to={`/artists/${artist.name}`}
+                                    onClick={handleClick}
+                                  >
+                                    <div
+                                      key={index}
+                                      className="flex justify-between hover:bg-neutral-300 rounded-lg px-3 py-2"
                                     >
                                       <h3>{artist.name}</h3>
-                                    </Link>
-                                  </DialogClose>
 
-                                  <h2 className="bg-primary text-secondary rounded-full px-2">
-                                    Artist
-                                  </h2>
-                                </div>
+                                      <h2 className="bg-primary text-secondary rounded-full px-2">
+                                        Artist
+                                      </h2>
+                                    </div>
+                                  </Link>
+                                </DialogClose>
                               );
                             }
                             return null;
@@ -188,60 +211,62 @@ function SearchButton() {
                     </>
                   )}
 
-                  {/* Song Titles And Lyrics */}
-                  {titleSearch.some((item) => item.title) && (
-                    <>
-                      <div className="ml-2">
-                        <>
-                          Found{" "}
-                          <span className="font-bold">
-                            {titleSearch.filter((item) => item.title).length +
-                              lyricsSearch.length}
-                          </span>{" "}
-                          result
+                  {(titleSearch.some((item) => item.title) || lyricsSearch.length > 0) && (
+                    <div className="ml-2">
+                      <>
+                        Found{" "}
+                        <span className="font-bold">
                           {titleSearch.filter((item) => item.title).length +
-                            lyricsSearch.length >
-                          1
-                            ? "s"
-                            : ""}
-                        </>
-                      </div>
-                      <div className="flex flex-col gap-2 p-1 bg-neutral-200 rounded-xl justify-center">
-                        {titleSearch
-                          .filter((item) => item.title)
-                          .map((song, index) => {
-                            if (
-                              song.title
-                                .toLowerCase()
-                                .includes(searchText.toLowerCase())
-                            ) {
-                              return (
-                                <div
-                                  key={index}
-                                  className="flex justify-between hover:bg-neutral-300 items-center gap-1 rounded-lg px-3 py-2"
-                                >
-                                  <div className="flex">
-                                    <span className="font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap mr-1">
-                                      <DialogClose asChild>
-                                        <Link
-                                          to={`/artists/${song.artist_name}/${song.title}`}
-                                          onClick={handleClick}
-                                        >
-                                          <h3>{song.title}</h3>
-                                        </Link>
-                                      </DialogClose>
-                                    </span>{" "}
-                                    <span className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-                                      - {song.artist_name}
-                                    </span>
-                                  </div>
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
+                            lyricsSearch.length}
+                        </span>{" "}
+                        result
+                        {titleSearch.filter((item) => item.title).length +
+                          lyricsSearch.length >
+                        1
+                          ? "s"
+                          : ""}
+                      </>
+                    </div>
+                  )}
 
+                  {/* Song Titles */}
+                  {titleSearch.some((item) => item.title) && (
+                    <div className="flex flex-col gap-2 p-1 bg-neutral-200 rounded-xl justify-center">
+                      {titleSearch
+                        .filter((item) => item.title)
+                        .map((song, index) => {
+                          if (
+                            song.title
+                              .toLowerCase()
+                              .includes(searchText.toLowerCase())
+                          ) {
+                            return (
+                              <DialogClose asChild key={index}>
+                                <Link
+                                  to={`/artists/${song.artist_name}/${song.title}`}
+                                  onClick={handleClick}
+                                >
+                                  <div className="flex justify-between hover:bg-neutral-300 items-center gap-1 rounded-lg px-3 py-2">
+                                    <div className="flex flex-wrap">
+                                      <span className="font-semibold mr-1">
+                                        <h3>{song.title}</h3>
+                                      </span>{" "}
+                                      <span className="">
+                                        - {song.artist_name}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </Link>
+                              </DialogClose>
+                            );
+                          }
+                          return null;
+                        })}
+                    </div>
+                  )}
+
+                  {lyricsSearch.length > 0 && (
+                    <div className="flex flex-col gap-2 p-1 bg-neutral-200 rounded-xl justify-center">
                       {activeSearch
                         .filter((item) => item.title)
                         .map((song) => {
@@ -287,7 +312,7 @@ function SearchButton() {
                           }
                           return null;
                         })}
-                    </>
+                    </div>
                   )}
                 </div>
               )
