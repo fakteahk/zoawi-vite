@@ -120,7 +120,7 @@ function SearchButton() {
             <input
               type="text"
               placeholder="Search"
-              className="border-b-2 border-primary/60 outline-none flex-grow"
+              className="border-2 border-primary/60 outline-none flex-grow p-2 rounded-lg "
               onChange={(e) => setSearchText(e.target.value)}
               value={searchText}
             />
@@ -146,7 +146,7 @@ function SearchButton() {
             )}
 
             {isSearching ? (
-              <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex items-center justify-center gap-2">
+              <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex items-center justify-center gap-2">
                 <div className="p-1">
                   <ColorRing
                     visible={true}
@@ -166,13 +166,13 @@ function SearchButton() {
                 </div>
               </div>
             ) : searchText === 0 ? (
-              <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
+              <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                 No results found
               </div>
             ) : (
               !isSearching &&
               activeSearch.length > 0 && (
-                <div className="cursor-pointer absolute p-4 top-36 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2 ">
+                <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2 ">
                   {/* Artists */}
                   {activeSearch.some((item) => item.name) && (
                     <>
@@ -211,7 +211,8 @@ function SearchButton() {
                     </>
                   )}
 
-                  {(titleSearch.some((item) => item.title) || lyricsSearch.length > 0) && (
+                  {(titleSearch.some((item) => item.title) ||
+                    lyricsSearch.length > 0) && (
                     <div className="ml-2">
                       <>
                         Found{" "}
