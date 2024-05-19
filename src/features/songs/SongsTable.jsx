@@ -164,7 +164,7 @@ function SongRow({ song }) {
   return (
     <div
       key={song.song_id}
-      className="bg-white hover:bg-card hover:ring-4 hover:ring/20 cursor-pointer p-3 rounded-sm shadow-sm border-2 border-secondary border-dashed  text-lg sm:space-x-1 mb-2"
+      className="bg-white hover:bg-card hover:ring-2 hover:ring-gray-200 cursor-pointer p-3 rounded-sm shadow-sm border-2 border-secondary border-dashed  text-lg sm:space-x-1 mb-2"
     >
       <div>
         <Link

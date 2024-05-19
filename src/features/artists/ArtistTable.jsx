@@ -80,7 +80,7 @@ export default function ArtistTable() {
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full hover:scale-110 transition-all duration-300 ease-in-out"
+          className="fixed bottom-4 right-4 bg-primary text-white p-2 rounded-full hover:scale-110 transition-all duration-300 ease-in-out"
         >
           <LiaArrowUpSolid size={32} />
         </button>

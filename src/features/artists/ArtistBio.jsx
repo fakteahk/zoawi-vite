@@ -74,8 +74,11 @@ function ArtistBio() {
           />
         )}
         <div className="">{artistName}</div>
+        {songs[0].bio ? (
+          <div className="text-sm mt-2">{songs[0].bio}</div>
+        ) : null}
       </div>
-      <div className="grid gap-2 p-2 min-w-96">
+      <div className="grid gap-2 p-2 min-w-96 px-4">
         {/* Go back arrow */}
         <div className="mb-4 flex text-sm justify-end">
           <button
@@ -96,14 +99,13 @@ function ArtistBio() {
             )}/${encodeURIComponent(song.title)}`}
             key={song.song_id}
           >
-            <div className="bg-secondary/30 hover:bg-secondary p-4 cursor-pointer rounded-sm shadow-md  text-lg sm:flex sm:space-x-1">
+            <div className="bg-secondary/30 p-2    sm:flex bg-white hover:bg-card hover:ring-2 hover:ring-gray-200 cursor-pointer rounded-sm shadow-sm border-2 border-primary/20 border-dashed  text-lg sm:space-x-1 mb-2">
               <p className="">{song.title}</p>
             </div>
           </Link>
         ))}
       </div>
     </div>
-    
   );
 }
 

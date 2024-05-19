@@ -111,12 +111,12 @@ function SearchButton() {
   }
 
   return (
-    <div className="text-white cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out ">
+    <div className="text-primary cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out ">
       <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger>
+        <DialogTrigger className="p-1 rounded-lg bg-gradient-to-bl from-green-400 to-stone-500 mb-6">
           <AiOutlineSearch size={24} />
         </DialogTrigger>
-        <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
+        <DialogContent className="top-24 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
           <DialogHeader>
             <DialogTitle>Search</DialogTitle>
             <DialogDescription>

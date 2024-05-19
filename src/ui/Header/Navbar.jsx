@@ -8,6 +8,8 @@ const Navbar = () => {
   let Links = [
     { name: "Songs", link: "/songs/page/1" },
     { name: "Artists", link: "/artists/" },
+    { name: "Genres", link: "/" },
+    { name: "News", link: "/" },
     { name: "About", link: "/about" },
     // { name: "Search", link: "/" },
   ];
@@ -65,16 +67,16 @@ const Navbar = () => {
         </div>
 
         {/* SearchBar */}
-        <div className="absolute right-20 md:right-32 top-4 md:hidden">
+        <div className="absolute right-20 md:right-32 top-3 md:hidden">
           <SearchButton />
         </div>
 
         {/* Menu icon */}
         <div
           onClick={() => setOpenNav(!openNav)}
-          className="absolute text-background right-8 top-4 cursor-pointer md:hidden hover:scale-110 duration-300 ease-in-out"
+          className="absolute text-background right-6 top-3 cursor-pointer md:hidden hover:scale-110 duration-300 ease-in-out"
         >
-          {openNav ? <MdClose size={24} /> : <MdMenu size={24} />}
+          {openNav ? <MdClose size={32} /> : <MdMenu size={32} />}
         </div>
 
         {/* link items */}
@@ -94,10 +96,12 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <div className="mt-1 ml-4 justify-end items-center hidden md:flex">
+          <div className="md:mt-0 ml-4 justify-end hidden md:flex">
+            <div className="">
             <SearchButton className="" />
+            </div>
           </div>
-          <button className="btn bg-transparent text-secondary md:ml-4  border rounded-full font-semibold px-2 py-1 duration-500 md:static">
+          <button className="btn bg-transparent text-secondary md:ml-4  border rounded-lg font-semibold px-2 py-1 duration-500 md:static">
             Login
           </button>
         </ul>
