@@ -31,12 +31,11 @@ export async function getArtistsCount() {
   return count;
 }
 
-
 export async function getArtistsForHomepage() {
-  const { data, error } = await supabase
+  // Fetch the artists
+  let { data: artists, error } = await supabase
     .from("artists")
     .select("*")
-    .order("id", { ascending: true })
     .range(0, 9);
 
   if (error) {
@@ -44,7 +43,29 @@ export async function getArtistsForHomepage() {
     throw new Error("Artists could not be loaded");
   }
 
-  return data;
+  // Fetch the click counts
+  const { data: clickCounts, error: clickCountError } = await supabase
+    .from("artist_click_count")
+    .select("*");
+
+  if (clickCountError) {
+    console.error(clickCountError);
+    throw new Error("Click counts could not be loaded");
+  }
+
+  // Join the artists with their click counts
+  const artistsWithClickCounts = artists.map(artist => {
+    const clickCount = clickCounts.find(cc => cc.artist_id === artist.id);
+    return {
+      ...artist,
+      click_count: clickCount ? clickCount.click_count : 0
+    };
+  });
+
+  // Sort the artists by click count in descending order
+  artistsWithClickCounts.sort((a, b) => b.click_count - a.click_count);
+
+  return artistsWithClickCounts;
 }
 
 // https://pwakmdomurtaxavvnhjk.supabase.co/storage/v1/object/public/artist_image/michael%20m%20sailo.jpeg

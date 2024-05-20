@@ -47,6 +47,7 @@ export async function getSongOfArtist(artistName) {
     .select("artist_id, song_id, title, image_url, bio, artist_name")
     .eq("artist_name", artistName);
 
+
   if (error) {
     console.error(error);
     throw new Error("Error fetching songs");
@@ -56,10 +57,49 @@ export async function getSongOfArtist(artistName) {
     return [];
   }
 
-  console.log(songs);
+  const artistId = songs[0].artist_id;
+  await updateArtistClickCount(artistId);
 
   return songs;
 }
+
+export async function updateArtistClickCount(artistId) {
+  console.log(artistId)
+  // Fetch the current click count for the artist
+  let { data, error } = await supabase
+    .from('artist_click_count')
+    .select('click_count')
+    .eq('artist_id', artistId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Click count could not be fetched");
+  }
+
+  // If no row was fetched, insert a new row for the artist
+  if (!data || data.length === 0) {
+    ({ data, error } = await supabase
+      .from('artist_click_count')
+      .insert([{ artist_id: artistId, click_count: 1 }]));
+  } else {
+    // Increment the click count and update the row
+    const newClickCount = data[0].click_count + 1;
+    ({ data, error } = await supabase
+      .from('artist_click_count')
+      .update({ click_count: newClickCount })
+      .eq('artist_id', artistId));
+      console.log(newClickCount)
+  }
+
+
+  if (error) {
+    console.error(error);
+    throw new Error("Click count could not be updated");
+  }
+
+  return data;
+}
+
 
 export async function getSimliarSongOfArtist(artistName, currentSongId) {
   let { data: songs, error } = await supabase
@@ -186,7 +226,7 @@ export async function updateSong(newSong) {
 export async function getSongsForHome() {
   let { data, error } = await supabase
     .from("artists_songs")
-    .select("artist_name, title, image_url")
+    .select("artist_id, artist_name, title, image_url")
     .range(0, 9);
 
   console.log(data, error);

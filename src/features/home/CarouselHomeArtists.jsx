@@ -11,6 +11,7 @@ import { getArtistsForHomepage } from "@/db/apiArtists";
 
 import catman from "/catman.svg";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 export function CarouselHomeArtists() {
   const { isLoading, data: artist } = useQuery({
@@ -35,6 +36,7 @@ export function CarouselHomeArtists() {
             className="pl-14 md:pl-48 lg:pl-56 basis-1/2 md:basis-1/3 lg:basis-1/4"
           >
             <div className="">
+              <Link to={`/artists/${artist.name}`}>
               <Card className="h-48 w-48 md:w-64 md:h-64 rounded-xl">
                 <CardContent className="relative flex aspect-square items-start justify-start -p-1 w-full h-full">
                   <img
@@ -55,6 +57,7 @@ export function CarouselHomeArtists() {
                   </div>
                 </CardContent>
               </Card>
+              </Link>
             </div>
           </CarouselItem>
         ))}

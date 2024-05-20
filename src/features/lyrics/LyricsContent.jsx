@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import SimiliarSongOfArtist from "./SimilarSongsOfArtist";
+import { LiaArrowLeftSolid } from "react-icons/lia";
 
 function LyricsContent() {
   const navigate = useNavigate();
@@ -41,6 +42,19 @@ function LyricsContent() {
 
   return (
     <>
+      <div className="mb-4 flex text-sm justify-end">
+        <button
+          className="flex items-center gap-2 mr-4"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(`/artists/${song[0].artist_name}`);
+          }}
+        >
+          <LiaArrowLeftSolid />
+          Go back
+        </button>
+      </div>
+
       <div className="pl-4 min-h-48 sm:w-[540px] w-[24rem] md:w-[720px]">
         <div className="mt-4 font-semibold">{song[0].title}</div>
         <div className="mt-1 pb-12 ">
