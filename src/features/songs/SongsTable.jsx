@@ -105,7 +105,7 @@ export default function SongsTable() {
                   <PaginationItem key={i}>
                     <PaginationLink
                       className={`cursor-pointer px-4 py-2 ${
-                        page === pageNumber ? "bg-blue-500 hover:bg-blue-600 text-white" : ""
+                        page === pageNumber ? "bg-primary/70 hover:bg-blue-600 text-white" : ""
                       }`}
                       onClick={() => {
                         setPage(pageNumber);

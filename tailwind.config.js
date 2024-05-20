@@ -16,6 +16,24 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      sans: [
+        '"Inter"',
+        'system-ui',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        '"Noto Sans"',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"',
+      ],
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -77,6 +95,9 @@ module.exports = {
         DEFAULT: '2px 2px 4px var(--tw-shadow-color)',
         lg: '4px 4px 8px var(--tw-shadow-color)',
         xl: '4px 4px 16px var(--tw-shadow-color)',
+      },
+      fontFamily: {
+        'oswald' : ['Oswald', 'sans-serif']
       }
     },
   },

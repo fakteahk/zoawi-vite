@@ -9,8 +9,8 @@ const Navbar = () => {
     { name: "Songs", link: "/songs/page/1" },
     { name: "Artists", link: "/artists/" },
     { name: "Genres", link: "/" },
-    { name: "News", link: "/" },
-    { name: "About", link: "/about" },
+    // { name: "News", link: "/" },
+    // { name: "About", link: "/about" },
     // { name: "Search", link: "/" },
   ];
   let [openNav, setOpenNav] = useState(false);
@@ -98,7 +98,7 @@ const Navbar = () => {
           ))}
           <div className="md:mt-0 ml-4 justify-end hidden md:flex">
             <div className="">
-            <SearchButton className="" />
+              <SearchButton className="" />
             </div>
           </div>
           <button className="btn bg-transparent text-secondary md:ml-4  border rounded-lg font-semibold px-2 py-1 duration-500 md:static">

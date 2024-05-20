@@ -111,22 +111,22 @@ function SearchButton() {
   }
 
   return (
-    <div className="text-primary cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out ">
+    <div className="text-primary cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out">
       <Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger className="p-1 rounded-lg bg-gradient-to-bl from-green-400 to-stone-500 mb-6">
+        <DialogTrigger className="p-1 rounded-lg bg-gradient-to-bl from-green-400 to-stone-500">
           <AiOutlineSearch size={24} />
         </DialogTrigger>
-        <DialogContent className="top-24 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
+        <DialogContent className="top-20 left-1/2 transform -translate-x-1/2 md:max-w-[50%] rounded-2xl w-[90%]">
           <DialogHeader>
-            <DialogTitle>Search</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="uppercase">Search</DialogTitle>
+            {/* <DialogDescription>
               Search for artists, songs or lyrics
-            </DialogDescription>
+            </DialogDescription> */}
           </DialogHeader>
           <div className="flex items-center justify-center">
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Search for artists, songs or lyrics"
               className="border-2 border-primary/60 outline-none flex-grow p-2 rounded-lg "
               onChange={(e) => setSearchText(e.target.value)}
               value={searchText}
@@ -153,7 +153,7 @@ function SearchButton() {
             )}
 
             {isSearching ? (
-              <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex items-center justify-center gap-2">
+              <div className="cursor-pointer absolute p-4 top-[8.5rem] z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex items-center justify-center gap-2">
                 <div className="p-1">
                   <ColorRing
                     visible={true}
@@ -177,13 +177,13 @@ function SearchButton() {
               activeSearch.length === 0 &&
               titleSearch.length === 0 &&
               lyricsSearch.length === 0 ? (
-              <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
+              <div className="cursor-pointer absolute p-4 top-[8.5rem] z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2">
                 No results found
               </div>
             ) : (
               !isSearching &&
               activeSearch.length > 0 && (
-                <div className="cursor-pointer absolute p-4 top-40 z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2 ">
+                <div className="cursor-pointer absolute p-4 top-[8.5rem] z-20 bg-neutral-100 text-slate-600 w-full rounded-xl flex flex-col gap-2 ">
                   {/* Artists */}
                   {activeSearch.some((item) => item.name) && (
                     <>

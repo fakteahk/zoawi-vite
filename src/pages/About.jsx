@@ -3,7 +3,7 @@ import AboutCard from "../ui/AboutCard";
 export default function About() {
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <div className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center">
+      <div className="text-2xl mb-4 sm:items-center sm:text-center sm:justify-center font-oswald">
         <p className="mb-4 font-bold">About Us!</p>
         <AboutCard />
       </div>
@@ -14,7 +14,7 @@ export default function About() {
 
 function AboutText() {
   return (
-    <div className="px-1 pt-3 ">
+    <div className="px-1 pt-3">
       Zoawi Lyrics sprang to life in 2024, a brainchild of the dynamic duo,
       Faktea and Zorini! Armed with their tech wizardry and a dash of spicy
       sauce, they embarked on a mission to unleash the magic of Mizo lyrics for

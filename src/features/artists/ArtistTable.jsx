@@ -11,7 +11,7 @@ export default function ArtistTable() {
   const itemsPerPage = 12;
   const navigate = useNavigate();
 
-  const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isLoading } =
     useInfiniteQuery(
       ["artists"],
       ({ pageParam = 1 }) => getArtists(pageParam, itemsPerPage),
