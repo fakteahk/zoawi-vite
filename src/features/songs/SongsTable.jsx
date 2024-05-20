@@ -76,12 +76,14 @@ export default function SongsTable() {
         ) : (
           <>
             {songs.map((song) => (
-              <SongRow key={song.id} song={song} />
+              <SongRow key={song.song_id} song={song} />
             ))}
           </>
         )}
 
-        <div className="mt-10">
+        
+      </div>
+      <div className="mt-10">
           <Pagination>
             <PaginationContent>
               <PaginationItem>
@@ -105,7 +107,9 @@ export default function SongsTable() {
                   <PaginationItem key={i}>
                     <PaginationLink
                       className={`cursor-pointer px-4 py-2 ${
-                        page === pageNumber ? "bg-primary/70 hover:bg-blue-600 text-white" : ""
+                        page === pageNumber
+                          ? "bg-primary/70 hover:bg-primary text-white"
+                          : ""
                       }`}
                       onClick={() => {
                         setPage(pageNumber);
@@ -117,13 +121,13 @@ export default function SongsTable() {
                   </PaginationItem>
                 );
               })}
-              <PaginationItem>
-                {page < totalPages - 2 && (
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                )}
-              </PaginationItem>
+
+              {page < totalPages - 2 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+
               <PaginationItem>
                 <PaginationNext
                   onClick={() => {
@@ -137,7 +141,6 @@ export default function SongsTable() {
             </PaginationContent>
           </Pagination>
         </div>
-      </div>
     </>
   );
 }

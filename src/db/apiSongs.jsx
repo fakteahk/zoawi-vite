@@ -44,7 +44,7 @@ export async function getSong(title) {
 export async function getSongOfArtist(artistName) {
   let { data: songs, error } = await supabase
     .from("artists_songs")
-    .select("artist_id, song_id, title, image_url, bio")
+    .select("artist_id, song_id, title, image_url, bio, artist_name")
     .eq("artist_name", artistName);
 
   if (error) {
@@ -57,6 +57,27 @@ export async function getSongOfArtist(artistName) {
   }
 
   console.log(songs);
+
+  return songs;
+}
+
+export async function getSimliarSongOfArtist(artistName, currentSongId) {
+  let { data: songs, error } = await supabase
+    .from("artists_songs")
+    .select("artist_id, song_id, title, image_url, bio, artist_name")
+    .eq("artist_name", artistName)
+    .neq("song_id", currentSongId)
+    .limit(3);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Error fetching songs");
+  }
+
+  if (songs.length === 0) {
+    return [];
+  }
+
 
   return songs;
 }

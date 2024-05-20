@@ -16,6 +16,8 @@ function ArtistBio() {
     queryFn: () => getSongOfArtist(artistName),
   });
 
+  console.log(songs)
+
   if (isLoading)
     return (
       <div>

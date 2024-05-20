@@ -8,9 +8,9 @@ const Navbar = () => {
   let Links = [
     { name: "Songs", link: "/songs/page/1" },
     { name: "Artists", link: "/artists/" },
-    { name: "Genres", link: "/" },
+    // { name: "Genres", link: "/" },
     // { name: "News", link: "/" },
-    // { name: "About", link: "/about" },
+    { name: "About", link: "/about" },
     // { name: "Search", link: "/" },
   ];
   let [openNav, setOpenNav] = useState(false);

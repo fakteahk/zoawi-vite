@@ -3,10 +3,11 @@ import { getSong } from "../../db/apiSongs";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import SimiliarSongOfArtist from "./SimilarSongsOfArtist";
 
 function LyricsContent() {
   const navigate = useNavigate();
-  const { title, artist_name } = useParams();
+  const { title } = useParams();
   const { isLoading, data: song } = useQuery({
     queryKey: ["song", title],
     queryFn: () => getSong(title),
@@ -16,7 +17,7 @@ function LyricsContent() {
 
   if (isLoading) {
     return (
-      <div className="pl-4 min-h-screen sm:w-[540px] w-[24rem] md:w-[720px]">
+      <div className="pl-4 sm:w-[540px] w-[24rem] md:w-[720px]">
         <div className="flex flex-col">
           <div className="space-y-2 mt-5">
             <Skeleton className="h-4 w-[250px]" />
@@ -39,33 +40,36 @@ function LyricsContent() {
   }
 
   return (
-    <div className="pl-4 min-h-screen sm:w-[540px] w-[24rem] md:w-[720px]">
-      <div className="mt-4 font-semibold">{song[0].title}</div>
-      <div className="mt-1 pb-12 ">
-        <span
-          className="cursor-pointer hover:text-muted-foreground inline-block"
-          onClick={() => navigate(`/artists/${song[0].artist_name}`)}
-        >
-          {isLoading ? (
-            <Skeleton height="20px" width="100%" />
-          ) : song[0].artist_name ? (
-            song[0].artist_name
+    <>
+      <div className="pl-4 min-h-48 sm:w-[540px] w-[24rem] md:w-[720px]">
+        <div className="mt-4 font-semibold">{song[0].title}</div>
+        <div className="mt-1 pb-12 ">
+          <span
+            className="cursor-pointer hover:text-muted-foreground inline-block"
+            onClick={() => navigate(`/artists/${song[0].artist_name}`)}
+          >
+            {isLoading ? (
+              <Skeleton height="20px" width="100%" />
+            ) : song[0].artist_name ? (
+              song[0].artist_name
+            ) : (
+              "Unknown"
+            )}
+          </span>
+        </div>
+        <div className="mt-4">
+          {song[0].lyrics ? (
+            <p
+              className="items-center"
+              dangerouslySetInnerHTML={{ __html: song[0].lyrics }}
+            ></p>
           ) : (
-            "Unknown"
+            <p>No lyrics found</p>
           )}
-        </span>
+        </div>
       </div>
-      <div className="mt-4">
-        {song[0].lyrics ? (
-          <p
-            className="items-center"
-            dangerouslySetInnerHTML={{ __html: song[0].lyrics }}
-          ></p>
-        ) : (
-          "No lyrics found"
-        )}
-      </div>
-    </div>
+      <SimiliarSongOfArtist song_id={song[0].song_id} />
+    </>
   );
 }
 
