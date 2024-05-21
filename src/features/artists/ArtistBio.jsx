@@ -138,7 +138,7 @@ function ArtistBio() {
                   {songs.map((song, index) => {
                     return (
                       <tr
-                        className="border-b dark:border-gray-800 cursor-pointer hover:ring-2 hover:ring-gray-200 hover:bg-neutral-100"
+                        className="border-b dark:border-gray-800 cursor-pointer hover:ring-2 hover:ring-gray-200 hover:bg-neutral-00"
                         key={song.title}
                         onClick={(e) => {
                           e.preventDefault();

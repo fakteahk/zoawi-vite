@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: https://zoawi-vite.vercel.app/sitemap.xml
