@@ -16,20 +16,10 @@ function Home() {
           database in Mizoram. No cap.
         </div>
       </div>
-{/* 
+      {/* 
       <div className="mx-auto flex flex-row items-center justify-center mb-12 w-[60%] h-12 border-2 rounded-full hover:scale-110 transition-all duration-500 ease-in-out">
         <div>fsdlifusadiofudiof</div>
       </div> */}
-
-
-      <div className="flex flex-col gap-4 justify-center items-center mx-auto">
-        <div className="pl-6 xl:pl-2 self-start text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-red-400 to-gray-400">
-          Hot Songs
-        </div>
-        <div className="">
-          <ListHomeSongs />
-        </div>
-      </div>
 
       <div className="flex flex-col gap-4 justify-center items-center mx-auto mb-12 min-w-[24rem] md:min-w-[42rem] lg:min-w-[56rem]">
         <div className="pl-6 xl:pl-2 self-start text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-red-600">
@@ -37,6 +27,15 @@ function Home() {
         </div>
         <div className="">
           <CarouselHomeArtists />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 justify-center items-center mx-auto">
+        <div className="pl-6 xl:pl-2 self-start text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-red-400 to-gray-400">
+          Hot Songs
+        </div>
+        <div className="">
+          <ListHomeSongs />
         </div>
       </div>
     </>
